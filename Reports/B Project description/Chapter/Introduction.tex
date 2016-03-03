@@ -1,1 +1,35 @@
 \section{Introduction}
+1. An introduction to the problem.\\
+Which problem are you trying to address?\\
+Automate colorization of black and white pictures. \\
+
+Why is it relevant to address the problem you plan to adress.\\
+There is a substantial amount of black and white photographic material, which is currently colorized by hand. In addition, automatization of this process can be applied to real time colorization of for instance black and white surveillence cameras. IR cameras\\
+
+And why is it a good idea to address it with the techniques studied in the course?\\
+Because of the non-linear classification involved in the colorization process  a neural network is a suitable solution. Another pro is that a large training data set is available or can be generated. 
+
+2. A review of the literature related to the topic.\\
+tinyclouds.org/colorize/\\
+
+
+
+3. A set of research questions that the project is expected to address, and a sketch of your solution\\
+What is the goal of your project? Automated colorization.\\
+What are you aiming at finding out? The order in which a neural network is able to mimic human colorization skillz. \\
+Which data are you going to use? Pictures that fullfill certain criteria, such as resolution and amount of colour. Then also a complementary black and white picture.
+We want to limit our training data to a certain set of classified images, such as fruit or animals.\\
+Which techniques are you going to use? Preliminary choice lies with a convolution neural network.\\
+How are you going to evaluate whether you did a good job or not (performance)? Colorization is very easily verifiable. This is because every input black and white image has a complementary colorized version.\\
+4. A description of the steps you plan to take to implement your project and answer the abovementioned questions. \\
+\begin{enumerate}
+\item	A extensive literature study\\
+\item	Determination of a few parameters\\
+	\begin{enumerate}
+		\item What kind of pictures?(fruit, animals, etc.)
+		\item What kind of NN architecture? 
+		\item What inputs are fed to the NN. (Grayscale, image size, etc)
+		\item Determination of the NN training method. 
+		\end{enumerate}
+\item How can the project be split up in different "work segments"(Creation of the input, optimalization, neural network itself, etc.)
+\item Actual work
