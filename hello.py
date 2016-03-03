@@ -1,1 +1,1 @@
-print('hello suckers')
+print('hello apollo')
