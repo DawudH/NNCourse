@@ -1,1 +1,1 @@
-print('hello suckers, je bent zelf een sucker JOOSTM!!')
+print('joost is een baasje')
