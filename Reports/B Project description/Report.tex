@@ -1,0 +1,49 @@
+\documentclass[12pt]{article}
+
+% USEPACKAGES
+\usepackage[margin=2.5cm]{geometry} % Change border margins.
+\usepackage[parfill]{parskip} % Removes indents
+\usepackage{color} % KLEURTJES
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{subfig}
+\usepackage{titlesec}
+\usepackage{wrapfig,lipsum,booktabs}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref} % Clickable links in PDF.
+\usepackage{array}
+
+
+% PAGESTYLE
+\pagestyle{plain}
+
+% COMMANDS
+\newcommand{\HRule}{\rule{\linewidth}{0.04cm}}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\renewcommand{\thesubsection}
+
+\titlespacing*{\section}{0pt}{1.0ex plus 0.5ex minus .2ex}{0.75ex plus .2ex}
+
+% ENVIRONMENTS
+
+
+
+\begin{document}
+% Titlepage
+\input{./Titlepage/Titlepage.tex}
+\pagenumbering{roman}
+
+% Table of contents
+\tableofcontents
+
+% Chapters
+\newpage
+\pagenumbering{arabic}
+\include{./Chapter/Introduction}
+
+% Bibliography
+\newpage
+\bibliography{./Bibliography/Bibliography}
+\bibliographystyle{ieeetr}
+\end{document}
