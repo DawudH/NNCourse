@@ -1,14 +1,15 @@
 \section{Literature Review}
-Automatic image colorisation is a problem that has been attempted to solve using different approaches. At the basic level, there are three approaches to make the computer convert a grayscale image to a color image. Every approach uses the texture and intensity gradients to link to either a learned or specified color. The three approaches are:
-
-image colorisation can be performed by using a target image that is related to the grayscale image in that it contains similar objects with similar colors. 
-The approach the authors will use is of a trained neural network, tha
+Automatic image colorisation is a problem that has been attempted to solve using different approaches. Seperated by input type, there are three approaches to make the computer convert a grayscale image to a color image. Every approach uses the texture and intensity gradients of the image to link a part of an image to either a learned or specified color. The three approaches are:
 
 
-\begin{enumerate}
-	\item hello
+\begin{itemize}
+	\item Colorise by example: image colorisation can be performed by using a target image that is related to the grayscale image in that it contains similar objects with similar colors. The objects in the grayscale image are compared to the target image via the patterns of the similar objects to find these what color the similar patterns should have. For example: to colorise a grayscale image of a zebra in the savannah, another image of a zebra in a savannah is required to create a good colorisation. The more similar the image, the better the result is.
 	
-\end{enumerate}
+	\item Colorise by user input: in this approach, the user specifies the color of different parts of the image by hand. While this is quire labor intensive, it guarantees that correct colors are used for the different objects in an image. For example, in the previous method the color of grass may be specified as green in the target image, whereas in the grayscale image the grass is actually colored brown. Due to the similarities in contrast the grass will thus be colored green, but in the colorise by user input this will not be a problem. However, if the user doesn't know the original colors of the grayscale image, colorisation is not possible.
+	
+	\item Colorise using a trained machine: techniques like convolutional neural networks allow training of a machine that recognises specific patterns in an image and couples the recognised pattern to a color. This requires the use of training images of which both grayscale and color versions are available. Since no human intervention is required after the training is completed, this may lead to a vast decrease in time consumption during colorisation. However, not all objects have the same color always, i.e. the same car model can have different colors, and a trained machine cannot identify what color a specific object is based on its class. It was found that a generic sepia tone results if enough examples of an object are in the training set.
+
+\end{itemize}
 
 
 
