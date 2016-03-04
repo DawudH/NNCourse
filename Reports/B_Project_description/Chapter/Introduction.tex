@@ -1,13 +1,9 @@
 \section{Introduction}
-1. An introduction to the problem.\\
-Which problem are you trying to address?\\
-Automate colorization of black and white pictures. \\
+The main problem that is going to be addressed is that of automatic image colorisation. There is a substantial amount of black and white photographic material, such as old pictures and old movies or videos of (political) speeches. Currently, these images are colorised, if at all, by hand using photo editing software, which is very labor intensive. However, color images may have a greater impact on people viewing these images than the grayscale version, which gives the need for automatic colorisation algorithms.
 
-Why is it relevant to address the problem you plan to adress.\\
-There is a substantial amount of black and white photographic material, which is currently colorized by hand. In addition, automatization of this process can be applied to real time colorization of for instance black and white surveillence cameras. IR cameras\\
+In addition, automatization of this process can be applied to real time colorization of video. Specifically (infra-red) surveillance cameras often save video in grayscale format, to save in file size or because the low-light conditions don't allow a good color representation. With the automated colorisation techniques it may be possible to generate color video on-demand while viewing, such that a human may more quickly understand what is seen in a video. In order to do this, it is required that the algorithm can colorise an image without intervention of a human, as a human would make real-time solutions impossible.
 
-And why is it a good idea to address it with the techniques studied in the course?\\
-Because of the non-linear classification involved in the colorization process  a neural network is a suitable solution. Another pro is that a large training data set is available or can be generated. 
+As will be explained in Section \ref{sec:litreview}, non-machine learning techniques are available to automatic image colorisation. However, the drawback of these techniques is that they require either an image comparable to the grayscale image in terms of content, or user input on what color to use for different parts of the image. While this makes things much easier than the hand-made solution with photo editing software, it still requires a human to specify these inputs, which in turn disallows a real-time solution. This makes the case for a trained machine (i.e. neural network), which uses presupplied training data to learn, and while actually colorising an image does not require additional input from a human. A large training data set can easily be generated from color images, such that gathering training data is not an issue.
 
 2. A review of the literature related to the topic.\\
 tinyclouds.org/colorize/\\
