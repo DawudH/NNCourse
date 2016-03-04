@@ -113,3 +113,7 @@ target/
 
 # dotenv
 *.aux
+
+
+# Apple OS X 
+.DS_Store
