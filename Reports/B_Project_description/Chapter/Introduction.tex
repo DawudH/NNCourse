@@ -1,9 +1,9 @@
 \section{Introduction}
-The main problem that is going to be addressed is that of automatic image colorisation. There is a substantial amount of black and white photographic material, such as old pictures and old movies or videos of (political) speeches. Currently, these images are colorised, if at all, by hand using photo editing software, which is very labor intensive. However, color images may have a greater impact on people viewing these images than the grayscale version, which gives the need for automatic colorisation algorithms.
+The main problem that is going to be addressed is that of automatic image colorization. There is a substantial amount of black and white photographic material, such as old pictures and old movies or videos of (political) speeches. Currently, these images are colorized, if at all, by hand using photo editing software, which is very labor intensive. However, color images may have a greater impact on people viewing these images than the grayscale version, which gives the need for automatic colorization algorithms.
 
-In addition, automatization of this process can be applied to real time colorization of video. Specifically (infra-red) surveillance cameras often save video in grayscale format, to save in file size or because the low-light conditions don't allow a good color representation. With the automated colorisation techniques it may be possible to generate color video on-demand while viewing, such that a human may more quickly understand what is seen in a video. In order to do this, it is required that the algorithm can colorise an image without intervention of a human, as a human would make real-time solutions impossible.
+In addition, automation of this process can be applied to real time colorization of video. Specifically (infra-red) surveillance cameras often save video in grayscale format, to save in file size or because the low-light conditions don't allow a good color representation. With the automated colorization techniques it may be possible to generate color video on-demand while viewing, such that a human may more quickly understand what is seen in a video. In order to do this, it is required that the algorithm can colorize an image without intervention of a human, as a human would make real-time solutions impossible.
 
-As will be explained in Section \ref{sec:litreview}, non-machine learning techniques are available to automatic image colorisation. However, the drawback of these techniques is that they require either an image comparable to the grayscale image in terms of content, or user input on what color to use for different parts of the image. While this makes things much easier than the hand-made solution with photo editing software, it still requires a human to specify these inputs, which in turn disallows a real-time solution. This makes the case for a trained machine (i.e. neural network), which uses presupplied training data to learn, and while actually colorising an image does not require additional input from a human. A large training data set can easily be generated from color images, such that gathering training data is not an issue.
+As will be explained in Section \ref{sec:litreview}, non-machine learning techniques are available to automatic image colorization. However, the drawback of these techniques is that they require either an image comparable to the grayscale image in terms of content, or user input on what color to use for different parts of the image. While this makes things much easier than the hand-made solution with photo editing software, it still requires a human to specify these inputs, which in turn disallows a real-time solution. This makes the case for a trained machine (i.e. neural network), which uses pre-supplied training data to learn, and while actually colorising an image does not require additional input from a human. A large training data set can easily be generated from color images, such that gathering training data is not an issue.
 
 2. A review of the literature related to the topic.\\
 tinyclouds.org/colorize/\\
@@ -13,11 +13,11 @@ tinyclouds.org/colorize/\\
 3. A set of research questions that the project is expected to address, and a sketch of your solution\\
 What is the goal of your project? Automated colorization.\\
 What are you aiming at finding out? The order in which a neural network is able to mimic human colorization skillz. \\
-Which data are you going to use? Pictures that fullfill certain criteria, such as resolution and amount of colour. Then also a complementary black and white picture.
+Which data are you going to use? Pictures that fulfill certain criteria, such as resolution and amount of color. Then also a complementary black and white picture.
 We want to limit our training data to a certain set of classified images, such as fruit or animals.\\
 Which techniques are you going to use? Preliminary choice lies with a convolution neural network.\\
 How are you going to evaluate whether you did a good job or not (performance)? Colorization is very easily verifiable. This is because every input black and white image has a complementary colorized version.\\
-4. A description of the steps you plan to take to implement your project and answer the abovementioned questions. \\
+4. A description of the steps you plan to take to implement your project and answer the above-mentioned questions. \\
 \begin{enumerate}
 \item	A extensive literature study
 \item	Determination of a few parameters
@@ -28,7 +28,7 @@ How are you going to evaluate whether you did a good job or not (performance)? C
 		\item Determination of the NN training method. 
 	\end{enumerate}
 
-\item How can the project be split up in different "work segments"(Creation of the input, optimalization, neural network itself, etc.)
+\item How can the project be split up in different "work segments"(Creation of the input, optimization, neural network itself, etc.)
 \item Actual work
 
 \end{enumerate}		
