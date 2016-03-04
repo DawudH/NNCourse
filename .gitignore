@@ -38,6 +38,8 @@
 *.ps
 *.toc
 *.synctex.gz
+*.bbl
+*.blg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
