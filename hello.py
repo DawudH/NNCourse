@@ -1,1 +1,1 @@
-print('joost is een baasje, zeker')
+print('joost is een baasje, zekedr')
