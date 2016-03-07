@@ -5,10 +5,14 @@ In table \ref{tab:timeallocation} a preliminary estimate of the time spent on ea
 
 The amount of time spent on the literature study is a direct copy of the amount of ECTS available for the literature study. The remaining amount of time is also based on the assigned number of ECTS. This resulted in a total time to divide of 470.4 hours.
 
-The determination of preliminary design choices will take up a considerable amount of time. Included in this preliminary design is an extensive literature study which is required to get sufficient knowledge about to subject to make these preliminary design choices. It is assumed that when this information is absorbed, the actual making of design choices only takes a small amount of time.
+The determination of preliminary design choices will take up a considerable amount of time. Included in this preliminary design is an extensive literature study which is required to get sufficient knowledge about the subject to make these preliminary design choices. It is assumed that once this information is gained, deciding on the design choices only takes a small amount of time. The preliminary design choices expected to be answered in this phase are: 
 
-After these parameters have been established the actual design of the neural network has to begin. This is where most of the time assigned to the project is going to be put in. The design of the Neural Network architecture is determined to be the most time intensive task. 
-This is mainly due to the fact that the design of the Neural Network architecture is the most broad subject when compared to the other design subjects. The design of the cost function and training algorithm are a more specialized design, resulting in overall less time needed for these design elements.
+\begin{enumerate}
+	\item \textbf{Design of in and output data structure.} \\ The design of the Neural Network architecture has a great dependancy on the input and output data structure. Only when in and output parameters such as number of pixels and color channel type are being set, the design of the Network can begin.
+	\item \textbf{Determination of cost function.} \\ The cost function is the crucial parameter in determining the performance of the network. Is is therefore essential that a cost function is determined in the early stages of the project.	
+\end{enumerate}
+
+After these parameters have been established the actual design of the neural network has to begin. This is where most of the time assigned to the project is going to be put in. The design of the Neural Network architecture is determined to be the most time intensive task. This task can be done simultaneous with designing the best training algorithm, e.g. once a preliminary network is constructed, training methods can be designed and evaluated using this preliminary network.
 
 \begin{table}[h]
 	\centering
@@ -17,17 +21,16 @@ This is mainly due to the fact that the design of the Neural Network architectur
 	\begin{tabular}{|l|l|l|} \hline
 		Task / time [hours]                                               			& Per person & total time \\ \hline
 		\textbf{Literature Study.}                                 			& 19,6    & 78,4          \\
-		\textbf{Determination of preliminary design choices.}      			&   -      & -              \\
+		\textbf{Determination of preliminary design choices.}      			&   -     & -             \\
 		Determination of the in and output data structure.         			& 2       & 8             \\
 		Determination of the Neural Network Architecture.          			& 3       & 12            \\
 		Determination of the cost function.                        			& 1       & 4             \\
-		Determination of Neural Network Training Algorithm         			& 1       & 4             \\
+		Determination of Neural Network Training Algorithm.         		& 1       & 4             \\
 		\textbf{Design of the Neural Network}                      			& -       &  -            \\
 		Design of the in and output data structure.                			& 15      & 60            \\
-		Design of the Neural Network architecture                  			& 25      & 100           \\
-		Design of the Neural Network Training Algorithm            			& 10      & 40            \\
-		Design of the cost function                                			& 10      & 40            \\
-		\textbf{Validation of the neural network}                  			& 5       & 20            \\
+		Design of the Neural Network architecture.                 			& 35      & 140           \\
+		Design of the Neural Network Training Algorithm.          			& 10      & 40            \\
+		\textbf{Verification  Validation of the neural network}          	& 5       & 20            \\
 		\textbf{Others(System integration, optimization, debugging, etc)} 	& 26      & 104           \\
 		\textbf{Total Time (h)}                                             & 117.6   & 470,4         \\ \hline
 	\end{tabular}
