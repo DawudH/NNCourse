@@ -5,7 +5,7 @@ The goal of this project is to design a neural network that can automatically co
 In order to find a solution to the automatic colorization of black and white images, a set of research questions have been identified:
 
 \begin{enumerate}
-	\item {What is a suitable input format which results in most efficient training of the network?}
+	\item {What image input format (amount of pixels, color channel type, etc.) results in the quickest convergence of the network, while still maintaining image information?} 
 	\item {What is a suitable output format that results in the most realistic colorization of the images?}
 	\item {What cost function quantifies the resulting colorisation of the images as realistic as a human would quantify it?}
 	\item {What network architecture should be used in order to achieve the lowest cost function?}
@@ -36,7 +36,7 @@ There are a lot of different possibilities as a choice for the Neural Network ar
 The training algorithm has a large effect on the convergence of the network output. An efficient training method should find the  weights and biases of the network that correspond to the highest performance function. Stochastic gradient descent updates the network after each sample, while for example the Levenberg-Marquardt method is a batch update method\cite{Hagan}. The training method should also be able to escape local minima, techniques such as added momentum can help solve this problem.
 
 \item \textbf{Designing the neural network.}
-After the most important parameters have been determined, construction of the neural network can begin. This is the biggest phase of the project since it includes the programming and debugging of the chosen algorithms. A suitable programming language has to be selected for end-use in combination with a programming language for debugging and prototyping, Matlab would be a good candidate for the latter. Verification of code modules can already be done once modules are finished. Once all the modules are verified the total verification of the algorithm can be done.
+ Designing the neural network is the biggest phase of the project since it includes the programming and debugging of the chosen algorithms. A suitable programming language has to be selected for end-use in combination with a programming language for debugging and prototyping, Matlab would be a good candidate for the latter. Verification of code modules can already be done once modules are finished. Once all the modules are verified the total verification of the algorithm can be done.
 \item \textbf{Training of the neural network.}
 Training of the neural network is one of most time-intensive phases. The determined training algorithm will be applied to the designed neural network. Different weight initializations and training parameters have to be chosen in order to result in the best convergence of the cost function of the network. 
 
