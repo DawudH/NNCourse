@@ -1,6 +1,6 @@
 \section{Research Questions}
 
-In order to set up the project and to find a solution to automization of coloring images, a set of research questions have to be identified. The following research questions are concluded to be essential in finding a solution of the problem:
+In order to set up the project and to find a solution to automation of coloring images, a set of research questions have to be identified. The following research questions are concluded to be essential in finding a solution of the problem:
 
 \begin{enumerate}
 	\item \textbf{What is a suitable input format which results in most efficient training of the network?}
@@ -16,7 +16,7 @@ Different steps have to be overcome in order to achieve a solution to the proble
 
 \begin{enumerate}
 \item	\textbf{An extensive literature study.}
-It is of great importance to study the literature mentioned in \ref{sec:litreview}. There are already a few well documented solutions for this problem, these need to be studied in-depth. It will become clear what the best Network Architecture to be used is and wether it is possible to build this Network ourselves or to modify existing solutions.
+It is of great importance to study the literature mentioned in \ref{sec:litreview}. There are already a few well documented solutions for this problem, these need to be studied in-depth. It will become clear what the best Network Architecture to be used is and whether it is possible to build this Network ourselves or to modify existing solutions.
 
 \item \textbf{Determination of in and output data structure.}
 The size of the input and output images is of great importance to the complexity of the problem. That is, the more pixels the input and output images have, the more neurons are required for the network. It is therefore essential to determine the in and output data structure in the early stages of the project since this affects the total architecture of the neural network. Since limited computation power is available, a preliminary study should be done on estimating the effect of image size on computation time. 
@@ -25,10 +25,10 @@ The size of the input and output images is of great importance to the complexity
 The cost function is a crucial parameter in evaluating the performance of the Neural Network. It is therefore essential to determine a cost function in the early stages of the project.
 
 \item \textbf{Determination of Neural Network architecture.}
-There are a lot of different possibilities as a choice for the Neural Network architecture. It has been shown \cite{AutomaticColorization} that Convolutional Neural Networks perform very well on the subject. Determining the network architecture is on of the most essential steps. The amount of layers should be determined, and the purpose of each layer should be determined, e.g. wheter it used convolution, max-pooling, down sampling etc. The amount of neurons in the input and output of the network should match the dimensions of the input and output data. 
+There are a lot of different possibilities as a choice for the Neural Network architecture. It has been shown \cite{AutomaticColorization} that Convolutional Neural Networks perform very well on the subject. Determining the network architecture is on of the most essential steps. The amount of layers should be determined, and the purpose of each layer should be determined, e.g. whether it used convolution, max-pooling, down sampling etc. The amount of neurons in the input and output of the network should match the dimensions of the input and output data. 
 
 \item \textbf{Determination of Neural Network training algorithm.}
-The training algorithm has a large effect on the convergence of the network output. An efficient training method should find the  weigths and biases of the network that correspond to the highest performance function. Stochastic gradient descent updates the network after each sample, while for example the Levenberg-Marquardt method is a batch update method. The training method should also be able to escape local minima, for example momentum can be added to prevent this.
+The training algorithm has a large effect on the convergence of the network output. An efficient training method should find the  weights and biases of the network that correspond to the highest performance function. Stochastic gradient descent updates the network after each sample, while for example the Levenberg-Marquardt method is a batch update method. The training method should also be able to escape local minima, for example momentum can be added to prevent this.
 
 \item \textbf{Designing the Neural Network.}
 After the most important parameters have been determined, construction of the Neural Network can begin. This is the biggest phase of the project since it includes the programming and debugging of the chosen algorithms. A suitable programming language has to be selected for end-use in combination with a programming language for debugging and prototyping, Matlab would be a good candidate for the latter. Verification of code modules can already be done once modules are finished. Once all the modules are verified the total verification of the algorithm can be done.
