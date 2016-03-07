@@ -28,7 +28,7 @@ The cost function is a crucial parameter in evaluating the performance of the Ne
 There are a lot of different possibilities as a choice for the Neural Network architecture. It has been shown that Convolutional Neural Networks perform very well on the subject \cite{Dahl}. Determining the network architecture is one of the most essential steps, e.g. whether it used convolution, max-pooling, down sampling etc. and in what order. The amount of neurons in the input and output of the network should match the dimensions of the input and output data. 
 
 \item \textbf{Determination of Neural Network training algorithm.}
-The training algorithm has a large effect on the convergence of the network output. An efficient training method should find the  weights and biases of the network that correspond to the highest performance function. Stochastic gradient descent updates the network after each sample, while for example the Levenberg-Marquardt method is a batch update method. The training method should also be able to escape local minimum, for example momentum can be added to prevent this.
+The training algorithm has a large effect on the convergence of the network output. An efficient training method should find the  weights and biases of the network that correspond to the highest performance function. Stochastic gradient descent updates the network after each sample, while for example the Levenberg-Marquardt method is a batch update method\cite{Hagan}. The training method should also be able to escape local minima, using techniques like momentum.
 
 \item \textbf{Designing the Neural Network.}
 After the most important parameters have been determined, construction of the Neural Network can begin. This is the biggest phase of the project since it includes the programming and debugging of the chosen algorithms. A suitable programming language has to be selected for end-use in combination with a programming language for debugging and prototyping, Matlab would be a good candidate for the latter. Verification of code modules can already be done once modules are finished. Once all the modules are verified the total verification of the algorithm can be done.
@@ -36,7 +36,7 @@ After the most important parameters have been determined, construction of the Ne
 Training of the Neural Network is one of most time-intensive phases. The determined training algorithm will be applied to the designed Neural Network. Different weight initializations and training parameters have to be chosen in order to result in the best convergence of the cost function of the Network. 
 
 \item \textbf{Analysis of the results.}
-Once the Network is trained, the performance of the Network should be assessed. A conclusion should be made on whether the algorithm performs well and recommendations should be given on the found solution to the problem.
+Once the Network is trained, the performance of the Network should be assessed. A measure of the quality of the network may be to what extent the colorized image is perceived by a human as realistic. This measure is less exact than for example the euclidean distance in color between the original color image and the colorized image. However, this kind of assessment leaves more room for the network to come up with realistic colors instead of the generic sepia tone that are seen on objects without a characteristic color, as explained in Section \ref{sec:litreview}.
 \end{enumerate}
 
 
