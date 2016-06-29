@@ -1,0 +1,97 @@
+Intro
+	Reason for image colorization
+	
+	Types of image colorization (from literature review, but shorter?)
+		by example
+		by user input
+		by a trained machine
+
+	Research problem: 
+		how to colorize an image using NN
+		How to pick a color: mean in color space is sepia
+
+	What is in the rest of this paper
+	
+
+Lit. review (actually previous attempts)
+	VGG16
+	Dahl
+		batch norm
+		concatenation
+	Zhang
+		dilation
+		classification
+
+
+Method
+	Prerequisites (things used by all networks)
+		Data set (fruit), (landscape)
+		Input size (128X128)
+
+	Color spaces + which one to use :
+		RGB (luminosity not separated from color)
+		HSV (circular domain)
+		YCbCr (OK)
+		CIELab (OK)
+		first layer as input, second and third layer as output
+
+	Architecture (not what it is but why WE use it)
+		General discription (how to colorize an image with an NN)
+		Features used by all networks
+			ReLu, weight initialization, padding, kernel size
+		Feature extraction
+		Reconstruct
+			Concatenate
+			Dilated convolution
+		Color generation
+			Two feature maps
+				blur
+			Classification
+				k-means
+				annealed mean
+				gaussian blur
+
+		Loss function
+			Squared error
+				Class rebalancing (histogram dataset)
+			Cross entropy
+				Class rebalancing
+		Architectures used:
+			Dahl, Compact, Dahl_classifier, Dahl_zhang, Zhang
+
+	Training method
+		nesterov momentum
+		adadelta
+
+Results
+	Show effect of colorspaces, blur, annealed mean
+	Compare results of architectures (images, error plot, feature maps)
+	
+
+
+Discussion
+	Final architecture for best performance
+	Data set validity? is fruit a good test case?
+	
+
+
+
+Conclusion
+Recommendations: What's next
+	hyperparameters research (momentum etc)
+	longer training
+	bigger training set
+	extend usage to all images
+
+
+
+Things that were compared:
+	Color space
+	Blur
+	Pretrained or not
+	Classification or not
+	Cost function
+	Architecture
+
+
+		

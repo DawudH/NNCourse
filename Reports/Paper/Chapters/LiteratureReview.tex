@@ -1,0 +1,24 @@
+\section{Literature review}
+
+
+VGG16
+
+
+
+
+Dahl
+batch norm
+concatenation
+
+
+
+
+Zhang
+dilation
+classification
+
+
+
+The present image task requires a deep neural network to be able to couple color to features in grayscale images, most likely in the form of a convolutional neural network, as used in the literature. More literature about convolutional neural networks can be found in \cite{GoodfellowBOOK}. The biggest problem with the machine learning approach to automatic colorization until now, is the case where an object does not have a characteristic color, such as a car or clothing. To solve this problem it is proposed to use generative adversarial networks, to influence the discriminator to be able to generate the right colors where there could be multiple solutions. Generative adversarial networks is described by \cite{Goodfellow} and \cite{Radford}. Another method to tackle this problem are variational Auto-encoders, altering a direct copy of the output, (variational) auto encoders are described by \cite{Gregor}, \cite{Kingma} and \cite{GoodfellowBOOK}.
+
+The work in this paper is very much an extension to the work of \cite{Dahl}. \cite{Dahl} first converts an RGB image to the YUV colorspace. One of the advantages of the YUV colorspace is that the greyscale values can be used as the Y value. The result of this is that the output of the network, the U and V channels can be concatenated with the input of the network, resulting in a colorized image.
