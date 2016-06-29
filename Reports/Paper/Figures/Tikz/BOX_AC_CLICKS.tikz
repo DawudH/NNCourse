@@ -1,0 +1,174 @@
+% This file was created by matlab2tikz.
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\figurewidth,
+height=\figureheight,
+at={(0\figurewidth,0\figureheight)},
+scale only axis,
+unbounded coords=jump,
+xmin=0.5,
+xmax=4.5,
+xtick={1,2,3,4},
+xticklabels={{HD-BASE (0)},{HD-SSD (0)},{LD-BASE (0)},{LD-SSD (0)}},
+xmajorgrids,
+ymin=11.05,
+ymax=97.95,
+ylabel={$\text{Clicks [}-\text{]}$},
+ymajorgrids,
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Number of Clicks},
+xlabel style={font={\small}},ylabel style={font=\small},ticklabel style={font=\footnotesize}
+]
+\addplot [color=black,dashed,forget plot]
+  table[row sep=crcr]{%
+1	63\\
+1	65\\
+};
+\addplot [color=black,dashed,forget plot]
+  table[row sep=crcr]{%
+2	66\\
+2	88\\
+};
+\addplot [color=black,dashed,forget plot]
+  table[row sep=crcr]{%
+3	29\\
+3	31\\
+};
+\addplot [color=black,dashed,forget plot]
+  table[row sep=crcr]{%
+4	38\\
+4	49\\
+};
+\addplot [color=black,dashed,forget plot]
+  table[row sep=crcr]{%
+1	36\\
+1	44\\
+};
+\addplot [color=black,dashed,forget plot]
+  table[row sep=crcr]{%
+2	43\\
+2	50\\
+};
+\addplot [color=black,dashed,forget plot]
+  table[row sep=crcr]{%
+3	15\\
+3	20\\
+};
+\addplot [color=black,dashed,forget plot]
+  table[row sep=crcr]{%
+4	23\\
+4	27\\
+};
+\addplot [color=black,solid,forget plot]
+  table[row sep=crcr]{%
+0.875	65\\
+1.125	65\\
+};
+\addplot [color=black,solid,forget plot]
+  table[row sep=crcr]{%
+1.875	88\\
+2.125	88\\
+};
+\addplot [color=black,solid,forget plot]
+  table[row sep=crcr]{%
+2.875	31\\
+3.125	31\\
+};
+\addplot [color=black,solid,forget plot]
+  table[row sep=crcr]{%
+3.875	49\\
+4.125	49\\
+};
+\addplot [color=black,solid,forget plot]
+  table[row sep=crcr]{%
+0.875	36\\
+1.125	36\\
+};
+\addplot [color=black,solid,forget plot]
+  table[row sep=crcr]{%
+1.875	43\\
+2.125	43\\
+};
+\addplot [color=black,solid,forget plot]
+  table[row sep=crcr]{%
+2.875	15\\
+3.125	15\\
+};
+\addplot [color=black,solid,forget plot]
+  table[row sep=crcr]{%
+3.875	23\\
+4.125	23\\
+};
+\addplot [color=blue,solid,forget plot]
+  table[row sep=crcr]{%
+0.75	44\\
+0.75	63\\
+1.25	63\\
+1.25	44\\
+0.75	44\\
+};
+\addplot [color=blue,solid,forget plot]
+  table[row sep=crcr]{%
+1.75	50\\
+1.75	66\\
+2.25	66\\
+2.25	50\\
+1.75	50\\
+};
+\addplot [color=blue,solid,forget plot]
+  table[row sep=crcr]{%
+2.75	20\\
+2.75	29\\
+3.25	29\\
+3.25	20\\
+2.75	20\\
+};
+\addplot [color=blue,solid,forget plot]
+  table[row sep=crcr]{%
+3.75	27\\
+3.75	38\\
+4.25	38\\
+4.25	27\\
+3.75	27\\
+};
+\addplot [color=red,solid,forget plot]
+  table[row sep=crcr]{%
+0.75	58\\
+1.25	58\\
+};
+\addplot [color=red,solid,forget plot]
+  table[row sep=crcr]{%
+1.75	54.5\\
+2.25	54.5\\
+};
+\addplot [color=red,solid,forget plot]
+  table[row sep=crcr]{%
+2.75	21.5\\
+3.25	21.5\\
+};
+\addplot [color=red,solid,forget plot]
+  table[row sep=crcr]{%
+3.75	31.5\\
+4.25	31.5\\
+};
+\addplot [color=black,only marks,mark=+,mark options={solid,draw=red},forget plot]
+  table[row sep=crcr]{%
+1	94\\
+};
+\addplot [color=black,only marks,mark=+,mark options={solid,draw=red},forget plot]
+  table[row sep=crcr]{%
+nan	nan\\
+};
+\addplot [color=black,only marks,mark=+,mark options={solid,draw=red},forget plot]
+  table[row sep=crcr]{%
+nan	nan\\
+};
+\addplot [color=black,only marks,mark=+,mark options={solid,draw=red},forget plot]
+  table[row sep=crcr]{%
+nan	nan\\
+};
+\end{axis}
+\end{tikzpicture}%

@@ -1,0 +1,77 @@
+\documentclass[journal,onecolumn]{IEEEtran}
+%
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[journal]{../sty/IEEEtran}
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+\usepackage{placeins}
+\usepackage{color}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\newlength\figureheight 
+\newlength\figurewidth
+
+
+% Set sizes figures (all the boxplots in 1 go!)
+\setlength\figureheight{0.3\textwidth}
+\setlength\figurewidth{0.4\textwidth}
+
+
+% FOR CAPTION CENTERING NOT IN LINE WITH THE IEEETRAN STYLE!
+%\usepackage{caption}% http://ctan.org/pkg/caption 
+
+
+\usepackage[cmex10]{amsmath}
+
+
+
+\begin{document}
+
+\title{\LARGE Using a deep neural network for automatic colorization of greyscale images. {\color{red} Should describe what we exactly did... }}
+
+\author{J.L. Dorscheidt (4091981), Dawud Hage (4190696), Dennis van der Hoff (4139925), Joost Meulenbeld (4103548)}% <-this % stops a space
+% make the title area
+\maketitle
+
+% As a general rule, do not put math, special symbols or citations
+% in the abstract or keywords.
+%
+\begin{abstract}
+\input{./Chapters/Abstract.tex}
+\end{abstract}
+
+
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+\input{./Chapters/Introduction.tex}
+\input{./Chapters/Related_Work.tex}
+\input{./Chapters/Method.tex}
+\input{./Chapters/Results.tex}
+\input{./Chapters/Conclusion.tex}
+
+\appendices
+\input{./Chapters/Appendix.tex}
+
+
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+
+\FloatBarrier
+\bibliography{./Bibliography/Bibliography}
+\bibliographystyle{ieeetr}
+
+ \end{document}
+
+

@@ -1,0 +1,40 @@
+\section{Method}
+This section contains the various techniques used for the colorization problem. %blabla
+\subsection{Dataset and Input}
+
+As an input to the network a large amount of images are needed. However, due to computational limitations, restrictions had to be made. One of these restrictions resulted in a selection of images based on a certain category; fruit, flower and landscape images. The fruit and flower dataset contain a rich amount of colors, straining the networks requirements. This strain is implied by the ambiguity %denk dat dit een goed woord is?
+of flowers and fruit, being able to contain a vast difference in colors, difficult to predict purely based on a grayscale image. The landscape dataset is more straight forward, containing less saturated colors and lacks fine details. A summary of the data used is given in table \ref{tab:dataset}.
+
+The network input are 128x128 grayscale images, converted from an RGB image to the selected colorspace. In total three different colorspaces are used; YCbCr, CIELab and HSV. The main difference between these colorspaces and RGB is the fact that they inherently have a luminosity layer in their respective colorspace. This luminosity layer is subsequently used as an grayscale input for the network, reducing the needed output layers to two instead of three for RGB. 
+
+
+
+\subsection{Model Architectures}
+A major part in creating a successful neural network is finding a suitable network architecture. For image classification convolutional neural networks are widely used with success \cite{Krizhevsky,Szegedy,Simonyan} . For our purpose a main feature of the convolutional network is that the image has to be reconstructed again, to retrieve spatial information. In total a set of three convolutional network architectures are used. An architecture based upon Dahl \cite{Dahl}, a pre-trained VGG16 \cite{Simonyan} architecture {\color{red} this is actually Dahl,  not sure about the actual amount of layers used for the reconstruction} and a classification architecture \cite{Zhang}. The architectures of the network are split up in a feature extraction part and a reconstruction part, which will be expanded upon in the following sections.\\ 
+\\%weet neit of je dit mag zeggen..
+\textbf{Feature extraction}
+
+\subsubsection{Dahl}%weet geen naam}
+
+
+This convolutional network is based upon the architecture used by Dahl \cite{Dahl}. It contains several convolutional layers, which use a 3x3 kernel throughout the network. After a set of convolutions a batch normalization is done followed by a max pool layer. Batch normalization is added such that in the reconstruction of the image the concatenated layers are in the same order of magnitude. The architecture was modified to fit the input dimensions. The network is an untrained network, having Glorit uniform distributed \cite{Glorot} initialized weights, meant to be trained simultaneously with the rest of the network. At the bottleneck of the architecture, the resolution of the feature maps are reduced to 16x16 pixels.
+ 
+%Figure toevoegen van het netwerk
+
+\subsubsection{VGG16}
+A substantial amount of pre-trained networks are available, trained on the ImageNet classification database. The architecture used is based upon VGG16 \cite{Simonyan}, which uses a 3x3 kernel throughout the network. This network has a proven architecture, and can be obtained with pre-trained weights. Modifications on the network where required to fit the input dimensions. VGG16 is used in classification of RGB images, while our network only needs one input, a grayscale image. The pre-trained weights of the three input maps where averaged to accept a single grayscale input image. The VGG16 architecture features several convolutional layers followed by max pooling. Batch normalization was added before every max pool layer, such that in the later concatenation of the layers the values are in the same order of magnitude. At the bottleneck of the architecture the feature maps have a resolution of 16x16 pixels. 
+
+\subsubsection{Classification}
+The classification architecture shares much similarities with the VGG16 architecture. The main difference can be found in the final layers of the network. This is due to the fact that classification is used rather than direct reconstruction of the wanted color layers. This classification is subsequently used to colorize the image. \\
+\\
+\textbf{Reconstruction}
+
+For reconstruction of the image, linear up-scaling is used. The reconstruction begins after the bottleneck of the convolutional network is reached, where the resolution of the feature maps is 16x16 pixels. The up-scaled information is concatenated with the convolutional layer before the bottleneck that matches the up-scaled layer resolution. Then a convolutional layer is used for feature extraction of the concatenated layer. A batch normalization is applied and the processes is repeated until the original image resolution is retrieved. For both the VGG16 and Dahl based architecture a final output layer is used with a 2 feature map output, which match to the corresponding colour output layers.
+
+For the classification the image is reconstructed to its original resolution. However, first a convolutional layer using a 1x1 kernel is used that has the same amount of feature maps as the required number of possible color classification bins. Then, these feature maps, representing discretized colours, %jopie jou expertise.
+
+A detailed representation with of the various architectures is given in figure (XXX)
+
+
+
+\subsection{Training method}
