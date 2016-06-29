@@ -40,6 +40,9 @@
 *.synctex.gz
 *.bbl
 *.blg
+*.dvi
+*.auxlock
+*.md5
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
