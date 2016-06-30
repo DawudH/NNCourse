@@ -48,6 +48,30 @@ of flowers and fruit, being able to contain a vast difference in colors, difficu
 The network input are 128x128 grayscale images, converted from an RGB image to the selected colorspace. In total three different colorspaces are used; YCbCr, CIELab and HSV. The main difference between these colorspaces and RGB is the fact that they inherently have a luminosity layer in their respective colorspace. This luminosity layer is subsequently used as an grayscale input for the network, reducing the needed output layers to two instead of three for RGB. 
 
 
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.32\textwidth}
+		\includegraphics[width=\textwidth,trim={125px 75px 125px 75px},clip]{RGB}
+		\caption{The RGB colorspace}
+		\label{fig:RGB}
+	\end{subfigure}
+	~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+	%(or a blank line to force the subfigure onto a new line)
+	\begin{subfigure}[b]{0.32\textwidth}
+		\includegraphics[width=\textwidth,trim={125px 75px 125px 75px},clip]{YCbCr}
+		\caption{The RGB colorspace represented in the YCbCr colorspace}
+		\label{fig:YCbCr}
+	\end{subfigure}
+	~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+	%(or a blank line to force the subfigure onto a new line)
+	\begin{subfigure}[b]{0.32\textwidth}
+		\includegraphics[width=\textwidth,trim={175px 75px 150px 75px},clip]{CIELab}
+		\caption{The RGB colorspace represented in the CIELab colorspace}
+		\label{fig:CIELab}
+	\end{subfigure}
+	\caption{The different colorspaces used in the different networks}\label{fig:animals}
+\end{figure}
+
 
 \subsection{Model Architectures}
 A major part in creating a successful neural network is finding a suitable network architecture. For image classification convolutional neural networks are widely used with success \cite{Krizhevsky,Szegedy,Simonyan} . For our purpose a main feature of the convolutional network is that the image has to be reconstructed again, to retrieve spatial information. In total a set of three convolutional network architectures are used. An architecture based upon Dahl \cite{Dahl}, a pre-trained VGG16 \cite{Simonyan} architecture {\color{red} this is actually Dahl,  not sure about the actual amount of layers used for the reconstruction} and a classification architecture \cite{Zhang}. The architectures of the network are split up in a feature extraction part and a reconstruction part, which will be expanded upon in the following sections.\\ 
@@ -75,7 +99,16 @@ For the classification the image is reconstructed to its original resolution. Ho
 
 A detailed representation with of the various architectures is given in figure (XXX)
 
+\subsection{Loss funtion}
 
+\begin{wrapfigure}{r}{0.5\textwidth}
+	\vspace{-20pt}
+	\begin{center}
+		\includegraphics[width=0.48\textwidth]{hist}
+	\end{center}
+	\caption{\color{red} The histogram of the total fruit dataset}
+	\vspace{-10pt}
+\end{wrapfigure}
 
 \subsection{Training method}
 
