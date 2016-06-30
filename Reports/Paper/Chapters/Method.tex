@@ -76,7 +76,6 @@ The main difference between these colorspaces and RGB is the fact that they inhe
 
 YCbCr is a colorspace that contains three layers. Y is the luminosity layer, which is essentially the grayscale input for the network.
 The Cb and Cr layers are the chroma blue and chroma red layers respectively.
-The combination of these three layers result in a certain color.
 The reason that this colorspace is used is due to the fact that the luminance layer is a component in the reconstruction of color, reducing the output of the network to two.
 The output has to be recombined with the input to retrieve the colorized image.
 A visualization of the colorspace can be found in figure (XXX).
@@ -85,11 +84,13 @@ A visualization of the colorspace can be found in figure (XXX).
 Another colorspace that is used is CIELab.
 This colorspace shares similarities with the YCbCr color space.
 CIELab has three components, L, a and b. The L layer is the luminosity layer, which is used as the grayscale image input.
-The a and b layers are the color components. CIELab distinguishes itself from YCbCr due to the fact that this colorspace can, in theory, display all 
+The a and b layers are the color components. CIELab distinguishes itself from YCbCr due to the fact that this colorspace can, in theory, display all possible electromagnetic frequencies. 
+However, the human eye is limited to RGB space. The RGB space plotted in Lab space can be seen in {\color{red} figure XXX}. 
 
 
 HSV is circular colorspace, where the the components of this colorspace are Hue, Saturation and Value. Value reflects the grayscale component, used as input. The Hue represent the color selected, while the Saturation component determines the color intensity. 
 However, most neural network loss function use some form of euclidean distance. This is problematic with the HSV colorspace, due to its circular properties. 
+
 
 \subsection{Model Architectures}
 A major part in creating a successful neural network is finding a suitable network architecture. For image classification convolutional neural networks are widely used with success \cite{Krizhevsky,Szegedy,Simonyan} . For our purpose a main feature of the convolutional network is that the image has to be reconstructed again, to retrieve spatial information. In total a set of three convolutional network architectures are used. An architecture based upon Dahl \cite{Dahl}, a pre-trained VGG16 \cite{Simonyan} architecture {\color{red} this is actually Dahl,  not sure about the actual amount of layers used for the reconstruction} and a classification architecture \cite{Zhang}. The architectures of the network are split up in a feature extraction part and a reconstruction part, which will be expanded upon in the following sections.\\ 
