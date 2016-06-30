@@ -39,25 +39,57 @@
 %nesterov momentum
 %adadelta
 
-This section contains the various techniques used for the colorization problem. %blabla
+This section contains the various techniques used for the colorization problem.
 \subsection{Dataset and Input}
 
-As an input to the network a large amount of images are needed. However, due to computational limitations, restrictions had to be made. One of these restrictions resulted in a selection of images based on a certain category; fruit and landscape images. The fruit dataset contain a rich amount of colors, straining the networks requirements. This strain is implied by the ambiguity %denk dat dit een goed woord is?
-of fruit, being able to contain a vast difference in colors, difficult to predict purely based on a grayscale image. The landscape dataset is more straight forward, containing less saturated colors and lacks fine details.
+As an input to the network a large amount of images are needed.
+However, due to computational limitations, restrictions had to be made.
+One of these restrictions resulted in a selection of images based on a certain category; fruit and landscape images.
+The fruit dataset contain a rich amount of colors, straining the networks requirements.
+This strain is implied by the ambiguity of fruit, being able to contain a vast set of different colors, difficult to predict purely based on a grayscale image.
+The landscape dataset is more straight forward, containing less saturated colors and lacks fine details.
 
-The datasets where generated using the popular image website Flickr (XXX). Using their freely available API a program was made that retrieved images in the required resolution and kept track of images retrieved, to avoid duplicates. The images are then collected in batches and stored in Numpy arrays as input for the network. %niet zeker of dit mag
+The datasets where generated using the popular image website {\color{red} Flickr (XXX)}.
+Using their freely available API a program was made that retrieved images in the required resolution and kept track of images retrieved, to avoid duplicates.
+The images are then collected in batches and stored in Numpy arrays as input for the network.
 
-The datasets retrieved had to be checked on incorrect images. To solve this problem a web application was made that enabled us to check images on defects. A detailed description can be found in appendix (XXX)
+The datasets retrieved had to be checked on incorrect images. To solve this problem a web application was made that enabled us to check images on defects. A detailed description can be found in {\color{red}appendix (XXX)}
 
 This resulted in 2 datasets, which are summarized in table \ref{tab:dataset}.
 
-The network input are 128x128 grayscale images, converted from an RGB image to the selected colorspace. In total three different colorspaces are used; YCbCr, CIELab and HSV. The main difference between these colorspaces and RGB is the fact that they inherently have a luminosity layer in their respective colorspace. This luminosity layer is subsequently used as an grayscale input for the network, reducing the needed output of the network to two instead of three for RGB. 
+\begin{table}[h!]
+	\centering
+	\caption{Datasets used for training and validation of the various networks}
+	\label{tab:dataset}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		Dataset   & Training Images & Validation images \\ \hline
+		Fruit     & 6000            & 1000              \\ \hline
+		Landscape & 34000           & 5000              \\ \hline
+	\end{tabular}
+\end{table}
 
-YCbCr is a colorspace that contains three layers. Y is the luminance layer, which is essentially the grayscale input for the network. The Cb and Cr layers are the chroma blue and chroma red layers respectively. The combination of these three layers result in a certain color. The reason that this colorspace is used is due to the fact that the luminance layer is a component in the reconstruction of color, reducing the output of the network to two. The output has to be recombined with the input to retrieve the colorized image. A visualization of the colorspace can be found in figure (XXX).
+The network input are 128x128 grayscale images, converted from an RGB image to the selected colorspace.
+In total three different colorspaces are used; YCbCr, CIELab and HSV. 
+The main difference between these colorspaces and RGB is the fact that they inherently have a luminosity layer in their respective colorspace. This luminosity layer is subsequently used as an grayscale input for the network, reducing the needed output of the network to two instead of three for RGB. 
+ 
 
-Another colorspace that is used is CIELab. This colorspace shares similarities with the YCbCr color space. CIELab has three components, L, a and b. The L layer stands for lightness, which is used as the grayscale image input. The a and b layers are the color components. 
+YCbCr is a colorspace that contains three layers. Y is the luminosity layer, which is essentially the grayscale input for the network.
+The Cb and Cr layers are the chroma blue and chroma red layers respectively.
+The combination of these three layers result in a certain color.
+The reason that this colorspace is used is due to the fact that the luminance layer is a component in the reconstruction of color, reducing the output of the network to two.
+The output has to be recombined with the input to retrieve the colorized image.
+A visualization of the colorspace can be found in figure (XXX).
+
+
+Another colorspace that is used is CIELab.
+This colorspace shares similarities with the YCbCr color space.
+CIELab has three components, L, a and b. The L layer is the luminosity layer, which is used as the grayscale image input.
+The a and b layers are the color components. CIELab distinguishes itself from YCbCr due to the fact that this colorspace can, in theory, display all 
+
 
 HSV is circular colorspace, where the the components of this colorspace are Hue, Saturation and Value. Value reflects the grayscale component, used as input. The Hue represent the color selected, while the Saturation component determines the color intensity. 
+However, most neural network loss function use some form of euclidean distance. This is problematic with the HSV colorspace, due to its circular properties. 
 
 \subsection{Model Architectures}
 A major part in creating a successful neural network is finding a suitable network architecture. For image classification convolutional neural networks are widely used with success \cite{Krizhevsky,Szegedy,Simonyan} . For our purpose a main feature of the convolutional network is that the image has to be reconstructed again, to retrieve spatial information. In total a set of three convolutional network architectures are used. An architecture based upon Dahl \cite{Dahl}, a pre-trained VGG16 \cite{Simonyan} architecture {\color{red} this is actually Dahl,  not sure about the actual amount of layers used for the reconstruction} and a classification architecture \cite{Zhang}. The architectures of the network are split up in a feature extraction part and a reconstruction part, which will be expanded upon in the following sections.\\ 
@@ -83,7 +115,7 @@ For reconstruction of the image, linear up-scaling is used. The reconstruction b
 
 For the classification the image is reconstructed to its original resolution. However, first a convolutional layer using a 1x1 kernel is used that has the same amount of feature maps as the required number of possible color classification bins. Then, these feature maps, representing discretized colours, %jopie jou expertise.
 
-A detailed representation with of the various architectures is given in figure (XXX)
+A detailed representation with of the various architectures is given in figure {\color{red}(XXX)}
 
 
 
