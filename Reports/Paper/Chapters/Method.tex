@@ -92,10 +92,29 @@ HSV is circular colorspace, where the the components of this colorspace are Hue,
 However, most neural network loss function use some form of euclidean distance. This is problematic with the HSV colorspace, due to its circular properties. 
 
 
+\subsubsection{Neural network properties}
+Neural networks contain a vast amount of different available parameters to tweak the networks behaviour. Throughout the report some of these parameters are kept constant for each network architecture. 
+
+When using a network without pre-trained weights, the networks weights are initialized. This is done using a Glorot Uniform distribution \cite{Glorot} as initialization of the weights. This weight initialization method samples from a uniform distribution with its variance scaled depending on the ingoing and outgoing data. %?
+
+The network consists mainly of convolutional layers. All convolutional layers, except some output layers, use ReLu activation functions. 
+
+Kernel sizes in the convolutional layers of the network are 3x3 kernels. This kernel size is based upon VGG16's \cite{Simonyan} kernel size.
+
+Stride in the convolutional layers is 1 by default. However, in the classification network {\color{red} ref(XXX)} stride is used to downsample the resolution of the image, compared to max pooling. %?
+
+
 \subsection{Model Architectures}
-A major part in creating a successful neural network is finding a suitable network architecture. For image classification convolutional neural networks are widely used with success \cite{Krizhevsky,Szegedy,Simonyan} . For our purpose a main feature of the convolutional network is that the image has to be reconstructed again, to retrieve spatial information. In total a set of three convolutional network architectures are used. An architecture based upon Dahl \cite{Dahl}, a pre-trained VGG16 \cite{Simonyan} architecture {\color{red} this is actually Dahl,  not sure about the actual amount of layers used for the reconstruction} and a classification architecture \cite{Zhang}. The architectures of the network are split up in a feature extraction part and a reconstruction part, which will be expanded upon in the following sections.\\ 
+A major part in creating a successful neural network is finding a suitable network architecture. For image classification convolutional neural networks are widely used with success \cite{Krizhevsky,Szegedy,Simonyan}. For our purpose a main feature of the convolutional network is that the image has to be reconstructed again, to retrieve spatial information.
+
+{\color{red} 
+In total a set of three convolutional network architectures are used. An architecture based upon Dahl \cite{Dahl}, a pre-trained VGG16 \cite{Simonyan} architecture {\color{red} this is actually Dahl,  not sure about the actual amount of layers used for the reconstruction} and a classification architecture \cite{Zhang}. The architectures of the network are split up in a feature extraction part and a reconstruction part, which will be expanded upon in the following sections.}\\ 
 \\%weet neit of je dit mag zeggen..
+
+
 \textbf{Feature extraction}
+
+%%Check op diepgang.
 
 \subsubsection{Dahl}%weet geen naam}
 
@@ -120,4 +139,5 @@ A detailed representation with of the various architectures is given in figure {
 
 
 
-\subsection{Training method}
+\subsubsection{Training method}
+The way errors are use
