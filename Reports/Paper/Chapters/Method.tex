@@ -69,30 +69,19 @@ This resulted in 2 datasets, which are summarized in table \ref{tab:dataset}.
 	\end{tabular}
 \end{table}
 
-The network input are 128x128 grayscale images, which can be propagated through the network in different batch sizes. Using batches over the one image at a time reduces computation time, and is a better estimate for the gradient of the loss function of the complete train set \cite{ioffe2015batch}. Making the batch size to large reduces the randomness of the search to the global minimum and results in possible slower convergence.
+The network input are 128x128 pixel grayscale images, which are propagated through the network in a given batch sizes. Using batches instead of one image at a time reduces computation time because better use is made of the parallelization of modern computer architectures, but more importantly the gradients calculated using a batch of images are a better estimate of the gradient for the entire training set, thus leading to a more stable gradient descent\cite{ioffe2015batch}. Making the batch size too large makes the search to the global minimum less stochastic, thus making it converge to a local optimum more quickly.
 
+The network is trained to be able to colorize an image, but the way it outputs the colorized image is dependent on the color space used during training. There are several options available:\\
 
-The input images are converted from an RGB image to a selected colorspace. 
-In total three different colorspaces are used; YCbCr, CIELab and HSV. 
-The main difference between these colorspaces and RGB is the fact that they inherently have a luminosity layer in their respective colorspace. This luminosity layer is subsequently used as an grayscale input for the network, reducing the needed output of the network to two instead of three for RGB. 
- 
+\textbf{RGB} This widely used color space specifies an intensity for the channels red, blue and green. The greatest drawback of using RGB is that the color is not separated from the luminosity. In this way, the network needs not only to output a hue and saturation of a color, but also the luminosity itself. This makes it a much tougher challenge to output an image that resembles a colorized version of the grayscale image. A visualisation of the RGB space is given in figure \ref{fig:RGB}
 
-YCbCr is a colorspace that contains three layers. Y is the luminosity layer, which is essentially the grayscale input for the network.
-The Cb and Cr layers are the chroma blue and chroma red layers respectively.
-The reason that this colorspace is used is due to the fact that the luminance layer is a component in the reconstruction of color, reducing the output of the network to two.
-The output has to be recombined with the input to retrieve the colorized image.
-A visualization of the colorspace can be found in figure (XXX).
+\textbf{HSV} Specifying the hue, saturation and value, uncouples the luminosity (value) from the color (hue and saturation). Furthermore decoupling the saturation could allow specifically tackhe ling the sepia and saturation problem as described in section \ref{sec:intro}. However, the color space is periodic in the hue axis. From the numerical perspective, this leads to an ambiguous error specification, since for one difference between target and network output color, two directions of improvement are equally valid, thus rendering gradient descent impossible.
 
+\textbf{YCbCr} The Y channel contains the luminosity of the image, while Cb and Cr layers are the chroma blue and chroma red layers respectively. While providing a separate luminosity channel, it was found that for different Y values, a given Cb and Cr combination does not specify the same color. This makes the error in the color specification dependent on the luminosity of the image. A visualization of the color space can be found in \ref{fig:YCbCr}.
 
-Another colorspace that is used is CIELab.
-This colorspace shares similarities with the YCbCr color space.
-CIELab has three components, L, a and b. The L layer is the luminosity layer, which is used as the grayscale image input.
-The a and b layers are the color components. CIELab distinguishes itself from YCbCr due to the fact that this colorspace can, in theory, display all possible electromagnetic frequencies. 
-However, the human eye is limited to RGB space. The RGB space plotted in Lab space can be seen in {\color{red} figure XXX}. 
+\textbf{CIELab} Similarly to the YCbCr color space, the L channel specifies the luminosity, the a and b layers the color. In contrast with the YCbCr space, a given a and b value specify a color, while the luminosity only determines how light the color is. However, for a single L layer not all a and b value translate to colors that can be represented in the RGB color space (as displayed by computer monitors). The CIELab color space is visualized in figure \ref{fig:CIELab}\\
 
-
-HSV is circular colorspace, where the the components of this colorspace are Hue, Saturation and Value. Value reflects the grayscale component, used as input. The Hue represent the color selected, while the Saturation component determines the color intensity. 
-However, most neural network loss function use some form of euclidean distance. This is problematic with the HSV colorspace, due to its circular properties. 
+To summarize, the HSV, YCbCr and CIELab color spaces all have the possibility of using one channel as input to the neural network, while requiring only two outputs of the network that instead of three with the RGB color space. Combined with the input, these two outputs allow reconstructing a color image. According to {\color{red}fdsafkldsjkflsa}, the CIELab color space has been found to give the most perceptually correct results for a colorization network {\color{red} Cite die ene paper van dawud waar ze dit zeggen en zeg wie het was!!}\\
 
 \begin{figure}
 	\centering
@@ -153,7 +142,9 @@ In the final layers of the network, the original image color layers have to be r
 
 The construction using two feature maps is a direct result of retrieving the original image resolution through the reconstruction of the image. As a final layer, a convolutional layer is used that maps to two feature maps, which represent the two color layers that are finally used to create a colorized image.
 
-To 
+As an aid to the colorization process, a Gaussian Blur is used on the color layers of the original image. Colorization does not require precise pixel by pixel colorization, because colors in images mostly appear in sets of pixels. When blurring, this enables the network to more easily converge towards a solution by reducing the noise in the color of the pixel set. Note that blurring the color layers does not reduce the image fidelity. This is due to the fact that the luminosity layer contains the details and contrast of the image, which is subsequently merged with the output color layers of the network.
+
+ 
 
 
 
@@ -194,7 +185,7 @@ For the classification the image is reconstructed to its original resolution. Ho
 
 A detailed representation with of the various architectures is given in figure {\color{red}(XXX)}}
 
-\subsection{Loss funtion}
+\subsection{Loss function}
 
 \begin{wrapfigure}{r}{0.5\textwidth}
 	\vspace{-20pt}
