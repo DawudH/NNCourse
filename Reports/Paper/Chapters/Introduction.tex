@@ -47,12 +47,12 @@ The sepia and saturation problem arises from the following: a neural network is 
 A trained neural network, in order to have the lowest possible cumulative error for all the training images, is encouraged to take some sort of mean color of all examples of the object in the training data set, which leads to the lowest mean squared error. For most objects that are linked to a certain color (such as bricks or a cloudless sky), this leads to undersaturated results, as illustrated in figure \ref{fig:colorspacesaturation}. 
 For objects that are not inherently linked to a certain color, this leads to a mean that lies somewhere in the center of the color space, which in practice often leads to a generic sepia tone.\\
 
-\begin{wrapfigure}{r}{0.45\textwidth}
+\begin{wrapfigure}{r}{0.37\textwidth}
 	\vspace{-20pt}
 	\begin{center}
-		\includegraphics[width=0.48\textwidth]{saturation.png}
+		\includegraphics[width=0.37\textwidth]{saturation.png}
 	\end{center}
-	\caption{\label{fig:colorspacesaturation} The CIE 1931 color space containing all colors detectable by a human. When training a network to colorize to certain target colors of a green/blue object (black dots in image) minimizing the sum squared error, an average color will result (white dot in image), which most of the time leads to a less saturated color, more to the center of this color space. When the original colors are even more scattered, for example cars or clothes which do not inherently have a single color, a generic sepia color usually results.}
+	\caption{\label{fig:colorspacesaturation} The CIE 1931 color space containing all colors detectable by a human. When training a network to colorize to certain target colors of a green/blue object (black dots in image) minimizing the sum squared error, an average color will result (white dot in image), which most of the time leads to a less saturated color, i.e. more to the center of this color space. When the original colors are even more scattered, for example cars or clothes which do not inherently have a single color, a generic sepia color usually results.}
 	\vspace{-10pt}
 \end{wrapfigure}
 	
