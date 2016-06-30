@@ -1,4 +1,4 @@
-\section{Method}
+\section{Method} \label{sec:method}
 %Method
 %Prerequisites (things used by all networks)
 %Data set (fruit), (landscape)
@@ -69,7 +69,10 @@ This resulted in 2 datasets, which are summarized in table \ref{tab:dataset}.
 	\end{tabular}
 \end{table}
 
-The network input are 128x128 grayscale images, converted from an RGB image to the selected colorspace.
+The network input are 128x128 grayscale images, which can be propagated through the network in different batch sizes. Using batches over the one image at a time reduces computation time, and is a better estimate for the gradient of the loss function of the complete train set \cite{ioffe2015batch}. Making the batch size to large reduces the randomness of the search to the global minimum and results in possible slower convergence.
+
+
+The input images are converted from an RGB image to a selected colorspace. 
 In total three different colorspaces are used; YCbCr, CIELab and HSV. 
 The main difference between these colorspaces and RGB is the fact that they inherently have a luminosity layer in their respective colorspace. This luminosity layer is subsequently used as an grayscale input for the network, reducing the needed output of the network to two instead of three for RGB. 
  
@@ -122,11 +125,11 @@ Neural networks contain a vast amount of different available parameters to tweak
 
 When using a network without pre-trained weights, the networks weights are initialized. This is done using a Glorot Uniform distribution \cite{Glorot} as initialization of the weights. This weight initialization method samples from a uniform distribution with its variance scaled depending on the ingoing and outgoing data. %?
 
-The network consists mainly of convolutional layers. All convolutional layers, except some output layers, use ReLu activation functions. 
+The network consists mainly of convolutional layers. All convolutional layers, except some output layers, use ReLu non-linearities. 
 
 Kernel sizes in the convolutional layers of the network are 3x3 kernels. This kernel size is based upon VGG16's \cite{Simonyan} kernel size.
 
-Stride in the convolutional layers is 1 by default. However, in the classification network {\color{red} ref(XXX)} stride is used to downsample the resolution of the image, compared to max pooling. %?
+Stride in the convolutional layers is 1 by default. However, in the classification network {\color{red} ref(XXX)} stride is used as a way to downsample the resolution of the image, comparable to the function of max pooling. %?
 
 Padding is required when using convolutional layers due to the fact that border information of the image is lost when convolving. This property is set to keep the output resolution the same as the input resolution. 
 
@@ -134,16 +137,27 @@ Padding is required when using convolutional layers due to the fact that border 
 \subsection{Feature Extraction}
 To be able to recognize certain objects in grayscale images, object dependent features are extracted. 
 This is done in the first part of the convolutional neural network, up until the bottleneck of the network.
-To extract these features convolutional layers are used with a varying amount of feature maps. A part of this feature extraction is reducing local features to global features, making them spatially independent. To accomplish this, Max pooling is widely used. Another technique available is using an appropriate amount of stride when convolving. {\color{red}reference??}.
+To extract these features convolutional layers are used with a varying amount of feature maps. A part of this feature extraction is reducing local features to global features, making them spatially invariant. To accomplish this, Max-pooling is widely used. Another technique available is using an appropriate amount of stride when convolving. {\color{red}reference??}.
 
 This results in spatially invariant feature maps in the bottleneck, only indicating what is in the image, but has no spatial information. To retrieve this spatial information, proper reconstruction of the image has to be done. This is expanded upon in section \ref{sec:reconstruction}.
 
 \subsection{reconstruction}
-Before the bottleneck, the image is reduced to a set of features, containing no information about its location in the image. To be able to colorize, spatial information is important. For reconstruction, various methods are used to retrieve the original image resolution.
+Before the bottleneck, the image is reduced to a set of features, containing no spatial information. To be able to colorize the image, spatial locations of the object are mandatory. For reconstruction, various methods are used to retrieve the original image resolution.
 
-First of all, the feature maps can be upscaled using linear upscaling. However, to retrieve the original image not only the features but also the information of where those features are coming from have to be retrieved. This is done by concatenating the information before the bottleneck, with the same resolution, with the upscaled features after the bottleneck. Then a convolutional layer is used to merge these features in feature maps of the upscaled resolution. This process is repeated until the original image resolution is retrieved.
+First of all, the feature maps can be upscaled using linear upscaling. However, to retrieve the original image not only the features but also the information of where those features are coming from have to be retrieved. This is done by concatenating the layers of the same resolution before the bottleneck with the upscaled features after the bottleneck. Then an convolutional layer is used to merge these features in feature maps of the upscaled resolution. This process is repeated until the original image resolution is retrieved.
 
-Another technique used is the use of dilated convolutions. %Jopie.
+{\color{red}Another technique used is the use of dilated convolutions.} %Jopie.}
+
+\subsection{Color Generation}
+In the final layers of the network, the original image color layers have to be reconstructed. Two different methods are used throughout the paper; Construction using two feature maps and classification.
+
+The construction using two feature maps is a direct result of retrieving the original image resolution through the reconstruction of the image. As a final layer, a convolutional layer is used that maps to two feature maps, which represent the two color layers that are finally used to create a colorized image.
+
+To 
+
+
+
+
 
  
 \subsection{Model Architectures}
@@ -153,7 +167,7 @@ A major part in creating a successful neural network is finding a suitable netwo
 In total a set of three convolutional network architectures are used. An architecture based upon Dahl \cite{Dahl}, a pre-trained VGG16 \cite{Simonyan} architecture {\color{red} this is actually Dahl,  not sure about the actual amount of layers used for the reconstruction} and a classification architecture \cite{Zhang}. The architectures of the network are split up in a feature extraction part and a reconstruction part, which will be expanded upon in the following sections.}\\ 
 \\%weet neit of je dit mag zeggen..
 
-
+{\color{red}
 \textbf{Feature extraction}
 
 %%Check op diepgang.
@@ -178,7 +192,7 @@ For reconstruction of the image, linear up-scaling is used. The reconstruction b
 For the classification the image is reconstructed to its original resolution. However, first a convolutional layer using a 1x1 kernel is used that has the same amount of feature maps as the required number of possible color classification bins. Then, these feature maps, representing discretized colours, %jopie jou expertise.
 
 
-A detailed representation with of the various architectures is given in figure {\color{red}(XXX)}
+A detailed representation with of the various architectures is given in figure {\color{red}(XXX)}}
 
 \subsection{Loss funtion}
 
