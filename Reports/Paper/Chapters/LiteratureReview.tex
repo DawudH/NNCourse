@@ -35,7 +35,8 @@ The work in this paper is very much an extension to the work of \cite{Dahl}. \ci
 
 
 
-The networks described here all use batch normalization layers, this type of layer is first described in \cite{ioffe2015batch}. 
+The networks described here all use batch normalization layers, this type of layer is first described in \cite{ioffe2015batch}. During training of deep networks the combination of weights and biases can make the nonlinearities to act in the saturated regime causing problems with vanishing gradient. To overcome this the weights need to be initialized carefully and small learning rates are used resulting in slow convergence. Normalizing the output of intermediate layers with respect to each batch that is propagated through the network, makes each subpart of the network less sensitive to the weights and biases of the other parts of the network. This results in faster training due to increased learning rates, the weights initialization can be done less carefully and reduces the need of regularization \cite{ioffe2015batch}.
+
 
 
 
