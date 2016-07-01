@@ -124,16 +124,20 @@ Padding is required when using convolutional layers due to the fact that border 
 \subsection{Feature Extraction}
 To be able to recognize certain objects in grayscale images, object dependent features are extracted. 
 This is done in the first part of the convolutional neural network, up until the bottleneck of the network.
-To extract these features convolutional layers are used with a varying amount of feature maps. A part of this feature extraction is reducing local features to global features, making them spatially invariant. To accomplish this, Max-pooling is widely used. Another technique available is using an appropriate amount of stride when convolving. {\color{red}reference??}.
+To extract these features convolutional layers are used with a varying amount of feature maps. A part of this feature extraction is reducing local features to more global features, making them invariant to spatial transformations. To accomplish this, Max-pooling is widely used. Another technique available is using an appropriate amount of stride when convolving. {\color{red}reference??}.
 
-This results in spatially invariant feature maps in the bottleneck, only indicating what is in the image, but has no spatial information. To retrieve this spatial information, proper reconstruction of the image has to be done. This is expanded upon in section \ref{sec:reconstruction}.
+This results in feature maps in the bottleneck which are spatially invariant to the input. These feature maps identify for a large part what is in the image, but have a decreased amount of spatial information. To retrieve this spatial information, proper reconstruction of the image has to be done. This is expanded upon in section \ref{sec:reconstruction}.
 
 \subsection{reconstruction}
-Before the bottleneck, the image is reduced to a set of features, containing no spatial information. To be able to colorize the image, spatial locations of the object are mandatory. For reconstruction, various methods are used to retrieve the original image resolution.
+Before the bottleneck, the image is reduced to a set of features, containing decreased amounts of spatial information. To be able to colorize the image, spatial locations of the object are required. For reconstruction, various methods are used to retrieve the original image resolution.
 
-First of all, the feature maps can be upscaled using linear upscaling. However, to retrieve the original image not only the features but also the information of where those features are coming from have to be retrieved. This is done by concatenating the layers of the same resolution before the bottleneck with the upscaled features after the bottleneck. Then an convolutional layer is used to merge these features in feature maps of the upscaled resolution. This process is repeated until the original image resolution is retrieved.
+First of all, the feature maps can be upscaled using linear upscaling. However, to retrieve the original image not only the features but also the localisation of the features needs to be done. There are multiple ways of retrieving the spatial information of the image \cite{Charpiat} \cite{Zhang}. The methods tested in these paper consist of residual autoencoders and dilated convolutions \cite{yu2015multi}.
 
-{\color{red}Another technique used is the use of dilated convolutions.} %Jopie.}
+The use of a residual autoencoder has been demonstrated by \cite{Dahl}. After the bottleneck of the CNN each layer is upscaled and concatenated with the parralel layer in the input pipeline of the network. This way global features are merged with the localisation of those featues. This process is repeated after each upscale layer untill the output of the network is reached, as can be seen in figure \ref{fig:dahlnetwork}.
+
+%This is done by concatenating the layers of the same resolution before the bottleneck with the upscaled features after the bottleneck. Then an convolutional layer is used to merge these features in feature maps of the upscaled resolution. This process is repeated until the original image resolution is retrieved.
+%
+Another technique used is the use of dilated convolutions \cite{yu2015multi}. Zhang et al. use strides in the incoming pipeline of the CNN, which causes less loss of spatial information. The bottleneck of the network consists of 28x28 feature maps. The output pipeline of the network is initialised by two layers of dilated convolutions, where each layer consists of 3 consecutive dilated convolutions. Using dilated convolutions has the effect that the input pipeline can compress the image to a larger size leaving more spatial information in the bottleneck of the image. The receptive field of dilate
 
 \subsection{Color Generation}
 In the final layers of the network, the original image color layers have to be reconstructed. Two different methods are used throughout the paper; Construction using two feature maps and classification.
