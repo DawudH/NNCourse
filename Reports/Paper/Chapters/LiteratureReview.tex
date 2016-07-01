@@ -37,9 +37,13 @@ The pre-trained VGG16 network is used, which already has a large variety of feat
 
 Maintaining the spatial information is done with the use of partial hypercolumns, also called a residual auto-encoder \cite{hariharan2015hypercolumns}. The image is upscaled by a factor two after each convolutional layer in the output pipeline of the network. These upscaled feature maps are concatenated with the corresponding input layer's feature maps as can be seen in figure \ref{fig:dahlnetwork}. This combination of global and more local features are then convolved using 3x3 convolutional kernels, this process is repeated until all the layers in the front-end are concatenated with the more global features. 
 
-Batch Normalization was applied after each convolutional layer block towards the concatenate layers (see section \ref{sec:batch_norm}). Throughout the network 3x3 convolutional kernels and rectified linear units (ReLu) \cite{nair2010rectified} as non-linearities are used. The loss function consists of applying least squares on the euclidean distance between the target pixel values and the output of the network. Gaussian blur is used over the target output of the image, resulting in better guidance of learning. 
+Batch Normalization was applied after each convolutional layer block towards the concatenate layers (see section \ref{sec:batch_norm}). 
+Throughout the network 3x3 convolutional kernels and rectified linear units (ReLu) \cite{nair2010rectified} as non-linearities are used. The loss function consists of calculating the sum of the squared euclidean distances between the target pixel values and the output of the network. 
+Gaussian blur is used over the target output of the image, resulting in better guidance of learning. 
 
-One of the problems encountered is that of color averaging, for images which have a large variety of color probabilities the network chooses the average of these colors. For example, cars can have a large variety of colors. The network colorizes these cars with the mean of all these colors, so in most cases cars will be colored sepia-like. It is proposed to use generative adversarial networks \cite{Radford}, to counter the color averaging problem. Another method to tackle this problem are variational Auto-encoders, altering a direct copy of the output, (variational) auto encoders are described by \cite{Gregor}, \cite{Kingma} and \cite{GoodfellowBOOK}. 
+One of the problems encountered is that of color averaging, for images which have a large variety of color probabilities the network chooses the average of these colors. For example, cars can have a large variety of colors. 
+The network colorizes these cars with the mean of all these colors, so in most cases cars will be colored sepia-like. It is proposed to use generative adversarial networks \cite{Radford}, to counter the color averaging problem. 
+Another method to tackle this problem are variational Auto-encoders, altering a direct copy of the output, (variational) auto encoders are described by \cite{Gregor}, \cite{Kingma} and \cite{GoodfellowBOOK}. 
 
 
 \subsection{Zhang et. al}
