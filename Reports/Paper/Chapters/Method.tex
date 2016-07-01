@@ -197,22 +197,29 @@ For convolutional neural networks training, stochastic gradient decent (SGD), so
 
 
 \subsection{Final choice of model architectures}
-Finally, different feature extraction, reconstruction and color generation architectures are combined in five different neural network model architectures that are tested for their performance. These five architectures are summarized in table \ref{tab:dataset}. All of the network architectures are described below by how and why they differ from the other architectures.
+In order to test the different architecture features as described above, five different neural network model architectures were designed. These architectures are implemented and tested for their performance. A summary of the architectures can be found in table \ref{tab:dataset}. All of the network architectures are described below by how and why they differ from the other architectures. There are a few different options for the architecture that are researched. These are all described above, and a short summary is given here:
+\begin{itemize}
+	\item Feature extraction: use a non-pretrained net or a part of VGG16.
+	\item Color generation: use a two feature map output as used by Dahl \cite{Dahl} or a classification approach as done by Zhang\cite{Zhang}.
+	\item Feature extraction downscaling: Use max-pooling as used by Dahl \cite{Dahl} or a stride in the convolutional filter as used by Zhang and Iizuka\cite{Zhang}\cite{IizukaSIGGRAPH2016}.
+	\item Reconstruction of local features: use concatenation and upscaling, leading to a form of hypercolumns as explained by Dhal\cite{Dahl} or dilation as used by Zhang\cite{Zhang}.
+\end{itemize}
+
 
 \subsubsection{Compact}
-
+The compact network is the only network that does not use classification as the color generation part of the network, but rather the two feature map output. It uses concatenation as its way of retrieving the spatially local information. Furthermore it is trained with randomly initialized weights. The network architecture is illustrated in figure 
 
 \subsubsection{Compact classifier}
-
+The compact classifier is the same network as the compact network, with a classification output instead of the two feature map output. 
 
 \subsubsection{Compact classifier dilated}
-
+The compact classifier dilated removes the max-pool layers, but instead uses stride to downscale in the feature extraction layers and dilation in the reconstruction layer. 
 
 \subsubsection{Compact classifier dilated and concat}
-
+This network not only uses dilated convolutions but adds concatenation of the feature extraction network with the reconstruction network to add more spatial information.
 
 \subsubsection{VGG16 compact classifier}
-
+The VGG16 compact classifier is the same network as the compact classifier, but instead uses the weights of the VGG16 network for the feature extraction part of the network, also making these weights non-trainable.
 
 
 
