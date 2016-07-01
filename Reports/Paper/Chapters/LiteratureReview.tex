@@ -60,7 +60,7 @@ In the output pipeline of the network, dilated convolutions \cite{yu2015multi} a
 \end{figure}
 
 In addition, the problem is posed as a classification problem, where each output pixel is classified as a certain color. This creates the opportunity of implementing class-rebalancing.
-Categorical cross-entropy is applied on the final softmax output layer of the network \cite{de2005tutorial}. The final loss consists out of the categorical cross-entropy loss multiplied with a value function based on the probability of the target color given in equation \ref{eq:lossZhang}, where $h$ and $w$ are the pixel width and height respectively, $Z$ is the target vector, $\widetilde{Z}$ is the output vector, and $v$ is the value function.
+Categorical cross-entropy is applied on the final softmax output layer of the network \cite{de2005tutorial}. The final loss consists out of the categorical cross-entropy loss multiplied with a value function based on the probability of the target color given in equation \ref{eq:lossZhang}, where $H$ and $W$ are the pixel width and height respectively, $Z$ is the target vector, $\widetilde{Z}$ is the output vector, and $v$ is the value function.
 Colors which are common in the dataset get a low loss, and colors which are rare in the dataset get a high loss, causing the network to 'steer' towards more saturated colors instead of sepia. 
 
 \begin{equation}

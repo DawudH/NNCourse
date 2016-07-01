@@ -171,28 +171,31 @@ Both the two feature maps and classification approach are tried during the prese
 
 
 \subsubsection{Loss Function}
-The loss function depends on the network architecture. In this paper roughly two different types of networks are used;Two feature maps output and classification. 
+During the present research, several loss functions were used, depending on the color generation method used.
 
-The two feature maps represent the color space layers of the to be reconstructed image, depending on the selected colorspace. The loss function is then defined as the sum squared distance between the output of the network and the original image color layers. This can be seen in equation \ref{eq:squaredsum}, where $p$ is the prediction of the network and $t$ is the target. 
+The two feature maps represent the color space layers of the to be reconstructed image, depending on the selected colorspace. The loss function is then defined as the sum of the squared distances between the output of the network and the original image color layers. This can be seen in equation \ref{eq:squaredsum}, where $p$ is the prediction of the network and $t$ is the target. The distances are calculated per pixel and per color channel.
 
 \begin{equation}
 \label{eq:squaredsum}
-L = (p - t)^2
+L = \sum_{pixels} \sum_{channels}(p - t)^2
 \end{equation}
 
-To enable the network to use more saturated colors, color rebalancing is applied to the loss function. This color rebalancing penalized the the network for selecting desaturated colors, by exponentially increasing the loss function when converging towards desaturated solutions. However, this did not produce desired results, due to the fact that it was figure dependend and difficult to tune to a global solution. 
+To enable the network to use more saturated colors, color rebalancing may be applied to the loss function. This color rebalancing penalizes the the network for selecting desaturated colors, by exponentially increasing the loss function when converging towards desaturated solutions. However, it was found that this does not produce desired results, probably due to the fact that it makes no use of the actual probability of the colors, thus leading to a crude approximation of the histogram. For the two feature maps output, the standard sum squared error as in equation \ref{eq:squaredsum} is used.
 
-For classification, categorical cross-entropy is used. This is done between the predicted color classification of the network per pixel and the target classification per pixel of color layers of the image. The categorical cross-entropy function is defined in equation \ref{eq:crossentropy}, where $t_{i,j}$ is the target classification. $t_i$ stands for each pixel, where $t_j$ stands for its respective probability distribution of the classified color. 
-$p_{i,j}$ is the predicted classification, where $p_{i}$ depicts the predicted pixel. $p_{j}$ is the estimated probability distribution of the classified color, by the network.  
+For classification, categorical cross-entropy is used. This is done between the predicted color classification of the network per pixel and the target classification per pixel of color layers of the image. The categorical cross-entropy function is defined in equation \ref{eq:crossentropy}, where $t_{i,j}$ is the target classification, where $i$ specifies the pixel, and $j$ its respective probability distribution of the classified color. 
+$p_{i,j}$ is the predicted classification, where $i$ depicts the predicted pixel. $j$ its estimated probability distribution of the classified color, by the network.
 
 \begin{equation}
 \label{eq:crossentropy}
 L_{i} = -\sum t_{i,j}\log(p_{i,j})
 \end{equation}
 
-The distribution of colors in the dataset is strongly biased towards desaturated colors. For classification, class rebalancing was added to assist the network in selecting more saturated colors. This was done by generating a histogram of the discrete colors in the dataset and using this information to balance out the loss function with respect to each color. This histogram is then merged with a uniform distribution($\lambda$) as hyper parameter to set the intensity of the color rebalancing. To keep the color rebalancing within reasonable bounds, its expected value is kept equal to one. Equation \ref{eq:classrebalance} is the applied class rebalancing, where $V$ is the class rebalance output, $H$ is the dataset histogram and $\lambda$ is the uniform distribution. 
+Due to the fact that in the training set the lower a and b values are highly represented, after training a bias will result towards picking lower a and b values during colorization, thus leading to undersaturated results. 
+Class rebalancing is added to assist the network in coping with this existing skewness of the training data set. This is done by generating a histogram of the discrete colors in the dataset, using this information to balance the loss function with respect to each color. 
+This histogram is then fused with a uniform distribution to deal with the fact that some of the colors in the histogram are so underrepresented that they have too big of an influence on the color rebalancing. To keep the color rebalancing within reasonable bounds, its expected value is kept equal to one. 
+The class rebalancing factor is given by equation \ref{eq:classrebalance}. The complete loss function of the cross-entropy is given by equation \ref{eq:lossZhang}, while the mean is also taken over the batch.
 
-\begin{equation}
+\begin{equation}\label{eq:classrebalance}
 V = ((1 - \lambda)\cdot H + \lambda)^{-1}
 \end{equation}
  
