@@ -2,6 +2,10 @@
 %Results
 %Show effect of colorspaces, blur, annealed mean
 %Compare results of architectures (images, error plot, feature maps)
+
+\subsubsection{Gaussian blur}
+The comparison between different Gaussian blur kernel standard deviations is seen in figure \ref{fig:blur}. The comparison was done with the compact network, trained on the landscape dataset. Note that the standard deviation only comes into play during training, since the target output layer is blurred the target less noisy. It is clear that the case with $\sigma=0$, i.e. no blur, the network was unable to find any colors. Using a blur radius of $\sigma=3$ or $\sigma=5$ leads to much better results. Between these two, the $\sigma=3$ case was chosen to be the best, since it seems more inclined to pick more saturated colors. A too high blur radius will also make the training less effective since the link between texture and color becomes weaker at the edges of objects.
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{blur}
