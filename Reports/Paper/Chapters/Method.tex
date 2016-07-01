@@ -168,7 +168,11 @@ $p_{i,j}$ is the predicted classification, where $p_{i}$ depicts the predicted p
 L_{i} = -\sum t_{i,j}\log(p_{i,j})
 \end{equation}
 
-The distribution of colors in the dataset is strongly biased towards desaturated colors. For classification, color rebalancing was added to assist the network in selecting more saturated colors. This was done by generating a histogram of the discrete colors in the dataset and using this information to balance out the loss function with respect to each color. This histogram is then merged with a uniform distribution($\lambda$) as hyper parameter to set the intensity of this color rebalancing. To keep the color rebalancing within reasonable bounds, it is kept in check by ensuring that its expected value is equal to 1. To keep the rebalancing value within boundsToo keep this value diff , to TFor classification, a histogram was made of the training set
+The distribution of colors in the dataset is strongly biased towards desaturated colors. For classification, class rebalancing was added to assist the network in selecting more saturated colors. This was done by generating a histogram of the discrete colors in the dataset and using this information to balance out the loss function with respect to each color. This histogram is then merged with a uniform distribution($\lambda$) as hyper parameter to set the intensity of the color rebalancing. To keep the color rebalancing within reasonable bounds, its expected value is kept equal to one. Equation \ref{eq:classrebalance} is the applied class rebalancing, where $V$ is the class rebalance output, $H$ is the dataset histogram and $\lambda$ is the uniform distribution. 
+
+\begin{equation}
+V = ((1 - \lambda)\cdot H + \lambda)^{-1}
+\end{equation}
  
 \subsection{Model Architectures}
 A major part in creating a successful neural network is finding a suitable network architecture. For image classification convolutional neural networks are widely used with success \cite{Krizhevsky,Szegedy,Simonyan}. For our purpose a main feature of the convolutional network is that the image has to be reconstructed again, to retrieve spatial information.
