@@ -1,9 +1,13 @@
 \section{Results}\label{sec:results}
 %Results
 %Show effect of colorspaces, blur, annealed mean
-%Compare results of architectures (images, error plot, feature maps)
+%Compare results of architecture (images, error plot, feature maps)
 
-In section \ref{sec:method} all the different techniques and methods used resulted in a selection of five final network architectures with distinct properties. In this section the results of these networks are shown in the form of colorization attempts by the various neural networks. 
+In section \ref{sec:method} all the different techniques and methods used resulted in multiple experiments. This sections shows the different results of each experiment, setting the foundation for the discussion in section \ref{sec:discussion}.
+
+\subsection{Colorspace}
+To asses the effect of different colorspaces, a comparison is made between CIELab and YCbCr. The compact network is trained on the landscape set for both the YCbCr and CIELab color space, for a total of 20 epochs. The result is shown in figure \ref{fig:colorspacecomparison}.
+
 
 \begin{figure}[h]
 	\centering
@@ -12,18 +16,3 @@ In section \ref{sec:method} all the different techniques and methods used result
 	\label{fig:results}
 \end{figure}
 
-
-\subsubsection{Compact}
-
-
-
-\subsubsection{Compact classifier}
-
-
-\subsubsection{Compact classifier dilated}
-
-
-\subsubsection{Compact classifier dilated and concat}
-
-
-\subsubsection{VGG16 compact classifier}
