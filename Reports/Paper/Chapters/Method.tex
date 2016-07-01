@@ -105,7 +105,7 @@ To summarize, the HSV, YCbCr and CIELab color spaces all have the possibility of
 \end{figure}
 
 
-\subsubsection{CNN properties}
+\subsection{CNN properties}
 \label{sec:nnproperties}
 CNNs contain a vast amount of properties to determine the networks behaviour. Most of these properties are chosen for optimum performance and a fair comparison between networks
 
@@ -170,10 +170,18 @@ The distribution of colors in the dataset is strongly biased towards desaturated
 V = ((1 - \lambda)\cdot H + \lambda)^{-1}
 \end{equation}
  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 \subsection{Model Architectures}
+{\color{red} 
 A major part in creating a successful neural network is finding a suitable network architecture. For image classification convolutional neural networks are widely used with success \cite{Krizhevsky,Szegedy,Simonyan}. For our purpose a main feature of the convolutional network is that the image has to be reconstructed again, to retrieve spatial information.
 
-{\color{red} 
+
 In total a set of three convolutional network architectures are used. An architecture based upon Dahl \cite{Dahl}, a pre-trained VGG16 \cite{Simonyan} architecture {\color{red} this is actually Dahl,  not sure about the actual amount of layers used for the reconstruction} and a classification architecture \cite{Zhang}. The architectures of the network are split up in a feature extraction part and a reconstruction part, which will be expanded upon in the following sections.}\\ 
 \\%weet neit of je dit mag zeggen..
 
