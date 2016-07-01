@@ -108,7 +108,6 @@ To summarize, the HSV, YCbCr and CIELab color spaces all have the possibility of
 \label{sec:nnproperties}
 Convolutional neural networks contain a vast amount of properties that determine the behaviour of the network. Structure of the loss function and the model architecture being the most important properties. To compare different architectures, it is important to keep as much hyperparameters the same as possible, resulting in a fair comparison between CNNs. The choices made in the experiment setup which are affiliated with the CNN properties will be explained here.
 
-%The incoming pipeline of the CNN can be chosen to be initialed from scratch, or to be initialed with pre-trained weights. For example VGG16 \cite{Simonyan} has shown excellent results in image classification, and therefore already has a large amount of feature extraction already available.
 A few parameters are held constant over all the test cases. When using a network without pre-trained weights, the networks weights have to be initialized. This is done using a Glorot Uniform distribution \cite{Glorot} as initialization of the weights. This weight initialization method samples from a uniform distribution with its variance scaled depending on the ingoing and outgoing data. 
 
 The intermediate layers of all the network consist of convolutional layers. All convolutional layers use ReLu activation functions, except for the final output layers \cite{nair2010rectified}. 
@@ -117,14 +116,10 @@ Stride in the convolutional layers is 1 by default. However, in the CNNs using d
 
 
 \subsubsection{Feature Extraction}
-To be able to recognize certain objects in grayscale images, object dependent features are extracted. 
-This is done in the first part of the convolutional neural network, up until the bottleneck of the network.
-To extract these features convolutional layers are used with a varying amount of feature maps. A part of this feature extraction is reducing local features to more global features, making them invariant to spatial transformations. To accomplish this, Max-pooling is widely used. Another technique available is using an appropriate amount of stride when convolving. {\color{red}reference??}.
-
-This results in feature maps in the bottleneck which are spatially invariant to the input. These feature maps identify for a large part what is in the image, but have a decreased amount of spatial information. To retrieve this spatial information, proper reconstruction of the image has to be done. This is expanded upon in section \ref{sec:reconstruction}.
+To be able to recognize certain objects in grayscale images, object dependent features are extracted. This is done in the first part of the convolutional neural network, also known as the input pipeline. To extract features convolutional layers are used. Each convolutional layer convolves the input of the layer with a kernel to a set of feature maps. Maxpooling is often used to make feature extraction spatially invariant to input transformations. The kernels in the incoming pipeline of the CNN can be chosen to be initialed from scratch, or to be initialed with pre-trained weights. For example VGG16 \cite{Simonyan} has shown excellent results in image classification, and therefore already has a large amount of feature extraction available \cite{Simonyan}. In this paper a comparison is made between using architectures which are completely trained from scratch, and architectures which use the input pipeline of the VGG16 network to initialise the convolutional kernels.
 
 \subsubsection{reconstruction}
-Before the bottleneck, the image is reduced to a set of features, containing decreased amounts of spatial information. To be able to colorize the image, spatial locations of the object are required. For reconstruction, various methods are used to retrieve the original image resolution.
+In the input pipeline of the network, the image is reduced to a set of features, containing decreased amounts of spatial information. To be able to colorize the image, localisation of these features is required. For reconstruction, various methods are used to retrieve the original image resolution.
 
 First of all, the feature maps can be upscaled using linear upscaling. However, to retrieve the original image not only the features but also the localisation of the features needs to be done. There are multiple ways of retrieving the spatial information of the image \cite{Charpiat} \cite{Zhang}. The methods tested in these paper consist of residual autoencoders and dilated convolutions \cite{yu2015multi}.
 
@@ -175,7 +170,7 @@ V = ((1 - \lambda)\cdot H + \lambda)^{-1}
 \end{equation}
  
 
-\subsubsection{Model Architectures}
+\subsection{Final choice of model architectures}
 
 {\color{red} 
 
