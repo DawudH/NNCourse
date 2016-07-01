@@ -155,10 +155,19 @@ The construction using two feature maps is a direct result of retrieving the ori
 
 As an aid to the colorization process, a Gaussian Blur is used on the color layers of the original image. Colorization does not require precise pixel by pixel colorization, because colors in images mostly appear in sets of pixels. When blurring, this enables the network to more easily converge towards a solution by reducing the noise in the color of the pixel set. Note that blurring the color layers does not reduce the image fidelity. This is due to the fact that the luminosity layer contains the details and contrast of the image, which is subsequently merged with the output color layers of the network.
 
- 
+{\color{red} Classification joostjens}
 
+\subsection{Loss Function}
+The loss function depends on the network architecture. In this paper roughly two different types of networks are used;Two feature maps output and classification. 
 
+The two feature maps represent the color space layers of the to be reconstructed image, depending on the selected colorspace. The loss function is then defined as the sum squared distance between the output of the network and the original image color layers. This can be seen in equation \ref{eq:squaredsum}, where $p$ is the prediction of the network and $t$ is the target. 
 
+\begin{equation}
+\label{eq:squaredsum}
+L = (p - t)^2
+\end{equation}
+
+For classification, categorical cross-entropy is used. This is done between the predicted color classification of   the neural network and the target classification per pixel of color layers of the image.
 
 
  
