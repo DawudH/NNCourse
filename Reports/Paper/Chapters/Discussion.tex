@@ -3,9 +3,8 @@
 Defining a quantative performance measure of the networks is outside of the scope of this paper. Therefore a comparison of the results of the five architectures is mainly done by sight.
 
 %comparison of datasets fruit and landscape, on compact net . 
-\subsection{Comparing dataset}
-The compact network was
-
+\subsection{Comparing datasets}
+The compact network is the only network that was trained on both the landscape dataset and the fruit dataset. In \ref{fig:landscape} the final results after ?? epochs on the landscape dataset can be seen. The algorithm seems to color landscapes to good standards. However it is concluded that landscape datasets offer less strain on the CNN, because landscapes contain only a small set of features coupled to colors. For example, trees, sea and grass cover a large amount of the landscape dataset, as opposed to the many classes of fruit in the fruit-dataset. In addition, images of landscapes offer a very low amount of spatial transformation. Strawberries and bananas come in many orientations and shapes, whereas landscapes always have a horizon where the top part is blue and the bottom part is green or brown. Therefore the landscape dataset is labeled to be a low-level test-case of the CNNs, and the fruit-dataset is used as a better performance measure for the CNNS.
 
 %discussion on difference between YcbYcr and Cielab Effect of blur
 \subsection{Comparing colorspace and effect of blur}
