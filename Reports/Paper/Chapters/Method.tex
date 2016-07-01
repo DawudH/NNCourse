@@ -156,9 +156,17 @@ The two feature maps represent the color space layers of the to be reconstructed
 L = (p - t)^2
 \end{equation}
 
-For classification, categorical cross-entropy is used. This is done between the predicted color classification of   the neural network and the target classification per pixel of color layers of the image.
+To enable the network to use more saturated colors, color rebalancing is applied to the loss function. This color rebalancing penalized the the network for selecting desaturated colors, by exponentially increasing the loss function when converging towards desaturated solutions. However, this did not produce desired results, due to the fact that it was figure dependend and difficult to tune to a global solution. 
 
+For classification, categorical cross-entropy is used. This is done between the predicted color classification of the network per pixel and the target classification per pixel of color layers of the image. The categorical cross-entropy function is defined in equation \ref{eq:crossentropy}, where $t_{i,j}$ is the target classification. $t_i$ stands for each pixel, where $t_j$ stands for its respective probability distribution of the classified color. 
+$p_{i,j}$ is the predicted classification, where $p_{i}$ depicts the predicted pixel. $p_{j}$ is the estimated probability distribution of the classified color, by the network.  
 
+\begin{equation}
+\label{eq:crossentropy}
+L_{i} = -\sum t_{i,j}\log(p_{i,j})
+\end{equation}
+
+The distribution of colors in the dataset is strongly biased towards desaturated colors. For classification, color rebalancing was added to assist the network in selecting more saturated colors. This was done by generating a histogram of the discrete colors in the dataset and using this information to balance out the loss function with respect to each color. This histogram is then merged with a uniform distribution($\lambda$) as hyper parameter to set the intensity of this color rebalancing. To keep the color rebalancing within reasonable bounds, it is kept in check by ensuring that its expected value is equal to 1. To keep the rebalancing value within boundsToo keep this value diff , to TFor classification, a histogram was made of the training set
  
 \subsection{Model Architectures}
 A major part in creating a successful neural network is finding a suitable network architecture. For image classification convolutional neural networks are widely used with success \cite{Krizhevsky,Szegedy,Simonyan}. For our purpose a main feature of the convolutional network is that the image has to be reconstructed again, to retrieve spatial information.
