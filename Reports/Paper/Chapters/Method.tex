@@ -128,15 +128,13 @@ Stride in the convolutional layers is 1x1 by default. However, in the CNNs using
 To recognize certain objects in grayscale images, object dependent features are extracted. This is done in the first part of the convolutional neural network, also known as the input pipeline. To extract features convolutional layers are used. Each convolutional layer convolves the input of the layer with a kernel to a set of feature maps. Max-pooling is often used to make feature extraction spatially invariant to input transformations \cite{Simonyan}. The kernels in the incoming pipeline of the CNN can be chosen to be initialed from scratch, or to be initialed with pre-trained weights. For example VGG16 \cite{Simonyan} has shown excellent results in image classification, and therefore already has a large amount of feature extraction available. In this paper a comparison is made between using architectures which are completely trained from scratch, and architectures which use the input pipeline of the VGG16 network to initialize the convolutional kernels.\\
 
 \subsubsection{reconstruction}
-In the input pipeline of the network, the image is reduced to a set of features, containing decreased amounts of spatial information. To be able to colorize the image, localization of these features is required. For reconstruction, various methods are used to retrieve the original image resolution.
-
-First of all, the feature maps can be upscaled using linear upscaling. However, to retrieve the original image not only the features but also the localization of the features needs to be done. There are multiple ways of retrieving the spatial information of the image \cite{Charpiat} \cite{Zhang}. The methods tested in these paper consist of residual auto-encoders and dilated convolutions \cite{yu2015multi}.
+In the input pipeline of the network, the image is reduced to a set of features, containing decreased amounts of spatial information. To be able to colorize the image, localization of these features is required. The feature maps can be upscaled using linear upscaling. However, to retrieve the original image not only the features but also the localization of the features needs to be done. There are multiple ways of retrieving the spatial information of the image \cite{Charpiat} \cite{Zhang}. The methods tested in these paper consist of residual auto-encoders and dilated convolutions \cite{yu2015multi}.
 
 The use of a residual auto-encoder has been demonstrated by \cite{Dahl}. After the bottleneck of the CNN each layer is upscaled and concatenated with the parallel layer in the input pipeline of the network. This way global features are merged with the localization of those features. This process is repeated after each upscale layer until the output of the network is reached, as can be seen in figure \ref{fig:dahlnetwork}.
 
 %This is done by concatenating the layers of the same resolution before the bottleneck with the upscaled features after the bottleneck. Then an convolutional layer is used to merge these features in feature maps of the upscaled resolution. This process is repeated until the original image resolution is retrieved.
 %
-Another technique used is the use of dilated convolutions \cite{yu2015multi}. Zhang et al. use strides in the incoming pipeline of the CNN, which causes less loss of spatial information. The bottleneck of the network consists of 28x28 feature maps. The output pipeline of the network is initialized by two layers of dilated convolutions, where each layer consists of 3 consecutive dilated convolutions. Using dilated convolutions has the effect that the input pipeline can compress the image to a larger size leaving more spatial information in the bottleneck of the image. The receptive field of dilate
+Another technique used is the use of dilated convolutions \cite{yu2015multi}. Zhang et al. use strides for downsampling in the incoming pipeline of the CNN, which causes less loss of spatial information. The bottleneck of the network consists of 28x28 feature maps. The output pipeline of the network is initialized by two layers of dilated convolutions, where each layer consists of 3 consecutive dilated convolutions. Using dilated convolutions has the effect that the input pipeline can compress the image to a larger size leaving more spatial information in the bottleneck of the image. The receptive field of dilated convolutions grows exponentionally with an increase in layers, as opposed to linearly with conventional convolutions. Less consecutive convolutions are therefore required when dilated convolutions are used in comparison with conventional convolutions.\\
 
 
 \subsubsection{Color Generation}
@@ -202,42 +200,9 @@ For convolutional neural networks training, stochastic gradient decent (SGD), so
 
 \subsection{Final choice of model architectures}
 
-{\color{red} 
-
-A major part in creating a successful neural network is finding a suitable network architecture. For image classification convolutional neural networks are widely used with success \cite{Krizhevsky,Szegedy,Simonyan}. For our purpose a main feature of the convolutional network is that the image has to be reconstructed again, to retrieve spatial information.
 
 
-In total a set of three convolutional network architectures are used. An architecture based upon Dahl \cite{Dahl}, a pre-trained VGG16 \cite{Simonyan} architecture {\color{red} this is actually Dahl,  not sure about the actual amount of layers used for the reconstruction} and a classification architecture \cite{Zhang}. The architectures of the network are split up in a feature extraction part and a reconstruction part, which will be expanded upon in the following sections.}\\ 
-\\%weet neit of je dit mag zeggen..
 
-{\color{red}
-\textbf{Feature extraction}
-
-%%Check op diepgang.
-
-\textbf{Dahl}%weet geen naam}
-
-
-This convolutional network is based upon the architecture used by Dahl \cite{Dahl}. It contains several convolutional layers, which use a 3x3 kernel throughout the network. After a set of convolutions a batch normalization is done followed by a max pool layer. Batch normalization is added such that in the reconstruction of the image the concatenated layers are in the same order of magnitude. The architecture was modified to fit the input dimensions. The network is an untrained network, having Glorit uniform distributed \cite{Glorot} initialized weights, meant to be trained simultaneously with the rest of the network. At the bottleneck of the architecture, the resolution of the feature maps are reduced to 16x16 pixels.
- 
-%Figure toevoegen van het netwerk
-
-\textbf{VGG16}
-A substantial amount of pre-trained networks are available, trained on the ImageNet classification database. The architecture used is based upon VGG16 \cite{Simonyan}, which uses a 3x3 kernel throughout the network. This network has a proven architecture, and can be obtained with pre-trained weights. Modifications on the network where required to fit the input dimensions. VGG16 is used in classification of RGB images, while our network only needs one input, a grayscale image. The pre-trained weights of the three input maps where averaged to accept a single grayscale input image. The VGG16 architecture features several convolutional layers followed by max pooling. Batch normalization was added before every max pool layer, such that in the later concatenation of the layers the values are in the same order of magnitude. At the bottleneck of the architecture the feature maps have a resolution of 16x16 pixels.
-
-\textbf{Classification}
-The classification architecture shares much similarities with the VGG16 architecture. The main difference can be found in the final layers of the network. This is due to the fact that classification is used rather than direct reconstruction of the wanted color layers. This classification is subsequently used to colorize the image. \\
-\\
-\textbf{Reconstruction}
-
-For reconstruction of the image, linear up-scaling is used. The reconstruction begins after the bottleneck of the convolutional network is reached, where the resolution of the feature maps is 16x16 pixels. The up-scaled information is concatenated with the convolutional layer before the bottleneck that matches the up-scaled layer resolution. Then a convolutional layer is used for feature extraction of the concatenated layer. A batch normalization is applied and the processes is repeated until the original image resolution is retrieved. For both the VGG16 and Dahl based architecture a final output layer is used with a 2 feature map output, which match to the corresponding colour output layers.
-
-For the classification the image is reconstructed to its original resolution. However, first a convolutional layer using a 1x1 kernel is used that has the same amount of feature maps as the required number of possible color classification bins. Then, these feature maps, representing discretized colours, %jopie jou expertise.
-
-
-A detailed representation with of the various architectures is given in figure {\color{red}(XXX)}}
-
-\subsection{Loss function}
 
 \begin{wrapfigure}{R}{0.5\textwidth}
 	\vspace{-20pt}
