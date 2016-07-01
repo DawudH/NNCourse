@@ -103,6 +103,8 @@ To summarize, the HSV, YCbCr and CIELab color spaces all have the possibility of
 	\caption{The different colorspaces used in the different networks}\label{fig:animals}
 \end{figure}
 
+\subsection{Training method}
+For convolutional neural networks training, stochastic gradient decent (SGD), sometimes together with momentum, is commonly used for updating the weights and biases \cite{IizukaSIGGRAPH2016}\cite{Simonyan}. The used hyper-parameters, especially the learning rate, requires careful tuning when using SGD. Often a scheduled learning rate, that is monotonically decreasing depending on the epoch, results in the best results. Since the focus of the present research lies not on what training method parameters are required, ADADELTA was used to automatically set the learning rate for every parameter\cite{zeiler2012adadelta}. Furthermore, Nesterov momentum was applied to lower the probability of getting stuck in a local minimum\cite{sutskever2013importance}.
 
 \subsection{Convolutional neural network properties}
 \label{sec:nnproperties}
@@ -223,8 +225,7 @@ A detailed representation with of the various architectures is given in figure {
 	\vspace{-10pt}
 \end{wrapfigure}
 
-\subsection{Training method}
-For convolutional neural networks stochastic gradient decent {\color{red}(SGD)}, sometimes together with momentum, is commonly used for updating the weights and biases \cite{IizukaSIGGRAPH2016} \cite{Simonyan}. The used hyper-parameters, especially the learning rate, requires careful tuning when using SGD. Often scheduled learning rate, that is monotonically decreasing depending on the epoch, results in the best results. 
+
 
 
 
