@@ -105,6 +105,16 @@ To summarize, the HSV, YCbCr and CIELab color spaces all have the possibility of
 
 \subsection{Convolutional neural network properties}
 \label{sec:nnproperties}
+
+\begin{wrapfigure}{R}{0.5\textwidth}
+	\vspace{-20pt}
+	\begin{center}
+		\includegraphics[width=0.49\textwidth,trim={75px 0px 75px 0px},clip]{K_nearest}
+	\end{center}
+	\caption{K nearest neighbors}
+	\label{fig:knearest}
+\end{wrapfigure}
+
 Convolutional neural networks contain a vast amount of properties that determine the behaviour of the network. Structure of the loss function and the model architecture being the most important properties. To compare different architectures, it is important to keep as much hyperparameters the same as possible, resulting in a fair comparison between CNNs. The choices made in the experiment setup which are affiliated with the CNN properties will be explained here.
 
 A few parameters are held constant over all the test cases. When using a network without pre-trained weights, the networks weights have to be initialized. This is done using a Glorot Uniform distribution \cite{Glorot} as initialization of the weights. This weight initialization method samples from a uniform distribution with its variance scaled depending on the ingoing and outgoing data. 
