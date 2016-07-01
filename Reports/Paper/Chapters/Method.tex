@@ -128,15 +128,13 @@ Stride in the convolutional layers is 1x1 by default. However, in the CNNs using
 To recognize certain objects in grayscale images, object dependent features are extracted. This is done in the first part of the convolutional neural network, also known as the input pipeline. To extract features convolutional layers are used. Each convolutional layer convolves the input of the layer with a kernel to a set of feature maps. Max-pooling is often used to make feature extraction spatially invariant to input transformations \cite{Simonyan}. The kernels in the incoming pipeline of the CNN can be chosen to be initialed from scratch, or to be initialed with pre-trained weights. For example VGG16 \cite{Simonyan} has shown excellent results in image classification, and therefore already has a large amount of feature extraction available. In this paper a comparison is made between using architectures which are completely trained from scratch, and architectures which use the input pipeline of the VGG16 network to initialize the convolutional kernels.\\
 
 \subsubsection{reconstruction}
-In the input pipeline of the network, the image is reduced to a set of features, containing decreased amounts of spatial information. To be able to colorize the image, localization of these features is required. For reconstruction, various methods are used to retrieve the original image resolution.
-
-First of all, the feature maps can be upscaled using linear upscaling. However, to retrieve the original image not only the features but also the localization of the features needs to be done. There are multiple ways of retrieving the spatial information of the image \cite{Charpiat} \cite{Zhang}. The methods tested in these paper consist of residual auto-encoders and dilated convolutions \cite{yu2015multi}.
+In the input pipeline of the network, the image is reduced to a set of features, containing decreased amounts of spatial information. To be able to colorize the image, localization of these features is required. The feature maps can be upscaled using linear upscaling. However, to retrieve the original image not only the features but also the localization of the features needs to be done. There are multiple ways of retrieving the spatial information of the image \cite{Charpiat} \cite{Zhang}. The methods tested in these paper consist of residual auto-encoders and dilated convolutions \cite{yu2015multi}.
 
 The use of a residual auto-encoder has been demonstrated by \cite{Dahl}. After the bottleneck of the CNN each layer is upscaled and concatenated with the parallel layer in the input pipeline of the network. This way global features are merged with the localization of those features. This process is repeated after each upscale layer until the output of the network is reached, as can be seen in figure \ref{fig:dahlnetwork}.
 
 %This is done by concatenating the layers of the same resolution before the bottleneck with the upscaled features after the bottleneck. Then an convolutional layer is used to merge these features in feature maps of the upscaled resolution. This process is repeated until the original image resolution is retrieved.
 %
-Another technique used is the use of dilated convolutions \cite{yu2015multi}. Zhang et al. use strides in the incoming pipeline of the CNN, which causes less loss of spatial information. The bottleneck of the network consists of 28x28 feature maps. The output pipeline of the network is initialized by two layers of dilated convolutions, where each layer consists of 3 consecutive dilated convolutions. Using dilated convolutions has the effect that the input pipeline can compress the image to a larger size leaving more spatial information in the bottleneck of the image. The receptive field of dilate
+Another technique used is the use of dilated convolutions \cite{yu2015multi}. Zhang et al. use strides for downsampling in the incoming pipeline of the CNN, which causes less loss of spatial information. The bottleneck of the network consists of 28x28 feature maps. The output pipeline of the network is initialized by two layers of dilated convolutions, where each layer consists of 3 consecutive dilated convolutions. Using dilated convolutions has the effect that the input pipeline can compress the image to a larger size leaving more spatial information in the bottleneck of the image. The receptive field of dilated convolutions grows exponentionally with an increase in layers, as opposed to linearly with conventional convolutions. Less consecutive convolutions are therefore required when dilated convolutions are used in comparison with conventional convolutions.\\
 
 
 \subsubsection{Color Generation}
@@ -144,35 +142,30 @@ In the final layers of the network, the original image color layers have to be r
 
 The construction using two feature maps is a direct result of retrieving the original image resolution through the reconstruction of the image. As a final layer, a convolutional layer is used that maps to two feature maps, which represent the two color layers that are finally used to create a colorized image.
 
-As an aid to the colorization process, a Gaussian Blur is used on the color layers of the original image. Colorization does not require precise pixel by pixel colorization, because colors in images mostly appear in sets of pixels. When blurring, this enables the network to more easily converge towards a solution by reducing the noise in the color of the pixel set. Note that blurring the color layers does not reduce the image fidelity. This is due to the fact that the luminosity layer contains the details and contrast of the image, which is subsequently merged with the output color layers of the network. This makes the colorization problem into a regression problem, where a continuous function is sought which maps a grayscale input to the two values that determine color in the output.
-
-The other method used is a classification approach to colorization: for a given input image, every pixel in the output image falls within one of a few predefined color classes. For the classification networks, the colorspace CIElab is used. The ab colorspace is discretized into $n$ classes, each corresponding to a discretized bin in the original ab colorspace. Classification applies a loss function per pixel in the image, so each pixel has a corresponding target vector. Instead of generating one-hot vectors per pixel, probability distributions are generated, assigning probabilities to multiple colorbins. This way the network can make use of the similarity of different colors in the ab colorspace. Using a target vector which has a distribution over the classes instead of a one-hot vector, helps to steer the network to the correct colors. In addition the use of a color distribution more closely resembles the nature of the colorization problem, since not every object is linked to a single color, but rather a distribution of possible colors. 
-
 \begin{wrapfigure}{R}{0.5\textwidth}
 	\vspace{-20pt}
 	\begin{center}
 		\includegraphics[width=0.40\textwidth,trim={75px 0px 75px 0px},clip]{K_nearest}
 	\end{center}
 	\caption{An illustration of the K-nearest neighbour algorithm. The red dots represent the centers of the colorbins in the discretized colorspace. The blue dot represents the ground truth ab value of the target pixel. The yellow dots correspond the the K-nearest neighbour colorbins. The class probabilities of the targetvector are generated by applying a gaussian blur on the distances to the K-nearest neigbour colorbins.}
-	\vspace{-10pt}
+	\vspace{0pt}
 	\label{fig:k_nearest}
 \end{wrapfigure}
 
+As an aid to the colorization process, a Gaussian Blur is used on the color layers of the original image. Colorization does not require precise pixel by pixel colorization, because colors in images mostly appear in sets of pixels. When blurring, this enables the network to more easily converge towards a solution by reducing the noise in the color of the pixel set. Note that blurring the color layers does not reduce the image fidelity. This is due to the fact that the luminosity layer contains the details and contrast of the image, which is subsequently merged with the output color layers of the network. This makes the colorization problem into a regression problem, where a continuous function is sought which maps a grayscale input to the two values that determine color in the output.
+
+The other method used is a classification approach to colorization: for a given input image, every pixel in the output image falls within one of a few predefined color classes. For the classification networks, the colorspace CIElab is used. The ab colorspace is discretized into $n$ classes, each corresponding to a discretized bin in the original ab colorspace. Classification applies a loss function per pixel in the image, so each pixel has a corresponding target vector. Instead of generating one-hot vectors per pixel, probability distributions are generated, assigning probabilities to multiple colorbins. This way the network can make use of the similarity of different colors in the ab colorspace. Using a target vector which has a distribution over the classes instead of a one-hot vector, helps to steer the network to the correct colors. In addition the use of a color distribution more closely resembles the nature of the colorization problem, since not every object is linked to a single color, but rather a distribution of possible colors. 
 Each target vector is generated by applying a gaussian blur over the k-nearest neighbour colorbins of the exact ab value, as can be seen in \ref{fig:k_nearest}. The result of these operations over one image is a set of $128*128=16384$ target vectors, each consisting of a probability distribution over the $n$ colorbins. 
-The final colorized version of the image is created by processing the probability distribution per pixel. Implementing an annealed mean to pick the best color from the probability distribution allows setting the degree with which to pick either the mode or the mean of the distribution \cite{Zhang}. The annealed mean operation can be seen in \ref{eq:anmean}, where \textbf{z} is the output probability vector of one pixel, T is the annealed mean temperature, and q is the total number of colorbins.
+The final colorized version of the image is created by processing the probability distribution per pixel. Implementing an annealed mean to pick the best color from the probability distribution allows setting the degree with which to pick either the mode or the mean of the distribution \cite{Zhang}. The annealed mean operation can be seen in figure \ref{eq:anmean}, where \textbf{z} is the output probability vector of one pixel, T is the annealed mean temperature, and q is the total number of colorbins. Both the two feature maps and classification approach are tried during the present research.\\
 
 \begin{equation}
 f_{T}(\textbf{z})=\frac{exp(\textbf{z}/T)}{\sum_q^{}exp(\textbf{z}_{q}/T)}
 \label{eq:anmean}
 \end{equation}
 
-Both the two feature maps and classification approach are tried during the present research.
-
-
 
 \subsubsection{Loss Function}
 During the present research, several loss functions were used, depending on the color generation method used.
-
 The two feature maps represent the color space layers of the to be reconstructed image, depending on the selected colorspace. The loss function is then defined as the sum of the squared distances between the output of the network and the original image color layers. This can be seen in equation \ref{eq:squaredsum}, where $p$ is the prediction of the network and $t$ is the target. The distances are calculated per pixel and per color channel.
 
 \begin{equation}
@@ -190,7 +183,7 @@ $p_{i,j}$ is the predicted classification, where $i$ depicts the predicted pixel
 L_{i} = -\sum t_{i,j}\log(p_{i,j})
 \end{equation}
 
-Due to the fact that in the training set the lower a and b values are highly represented, after training a bias will result towards picking lower a and b values during colorization, thus leading to undersaturated results. 
+Due to the fact that in the training set the lower a and b values are highly represented, after training a bias will result towards picking lower a and b values during colorization, thus leading to under saturated results. 
 Class rebalancing is added to assist the network in coping with this existing skewness of the training data set. This is done by generating a histogram of the discrete colors in the dataset, using this information to balance the loss function with respect to each color. 
 This histogram is then fused with a uniform distribution to deal with the fact that some of the colors in the histogram are so underrepresented that they have too big of an influence on the color rebalancing. To keep the color rebalancing within reasonable bounds, its expected value is kept equal to one. 
 The class rebalancing factor is given by equation \ref{eq:classrebalance}. The complete loss function of the cross-entropy is given by equation \ref{eq:lossZhang}, while the mean is also taken over the batch.
@@ -204,43 +197,24 @@ For convolutional neural networks training, stochastic gradient decent (SGD), so
 
 
 \subsection{Final choice of model architectures}
+Finally, different feature extraction, reconstruction and color generation architectures are combined in five different neural network model architectures that are tested for their performance. These five architectures are summarized in table \ref{tab:dataset}. All of the network architectures are described below by how and why they differ from the other architectures.
 
-{\color{red} 
-
-A major part in creating a successful neural network is finding a suitable network architecture. For image classification convolutional neural networks are widely used with success \cite{Krizhevsky,Szegedy,Simonyan}. For our purpose a main feature of the convolutional network is that the image has to be reconstructed again, to retrieve spatial information.
-
-
-In total a set of three convolutional network architectures are used. An architecture based upon Dahl \cite{Dahl}, a pre-trained VGG16 \cite{Simonyan} architecture {\color{red} this is actually Dahl,  not sure about the actual amount of layers used for the reconstruction} and a classification architecture \cite{Zhang}. The architectures of the network are split up in a feature extraction part and a reconstruction part, which will be expanded upon in the following sections.}\\ 
-\\%weet neit of je dit mag zeggen..
-
-{\color{red}
-\textbf{Feature extraction}
-
-%%Check op diepgang.
-
-\textbf{Dahl}%weet geen naam}
+\subsubsection{Compact}
 
 
-This convolutional network is based upon the architecture used by Dahl \cite{Dahl}. It contains several convolutional layers, which use a 3x3 kernel throughout the network. After a set of convolutions a batch normalization is done followed by a max pool layer. Batch normalization is added such that in the reconstruction of the image the concatenated layers are in the same order of magnitude. The architecture was modified to fit the input dimensions. The network is an untrained network, having Glorit uniform distributed \cite{Glorot} initialized weights, meant to be trained simultaneously with the rest of the network. At the bottleneck of the architecture, the resolution of the feature maps are reduced to 16x16 pixels.
- 
-%Figure toevoegen van het netwerk
-
-\textbf{VGG16}
-A substantial amount of pre-trained networks are available, trained on the ImageNet classification database. The architecture used is based upon VGG16 \cite{Simonyan}, which uses a 3x3 kernel throughout the network. This network has a proven architecture, and can be obtained with pre-trained weights. Modifications on the network where required to fit the input dimensions. VGG16 is used in classification of RGB images, while our network only needs one input, a grayscale image. The pre-trained weights of the three input maps where averaged to accept a single grayscale input image. The VGG16 architecture features several convolutional layers followed by max pooling. Batch normalization was added before every max pool layer, such that in the later concatenation of the layers the values are in the same order of magnitude. At the bottleneck of the architecture the feature maps have a resolution of 16x16 pixels.
-
-\textbf{Classification}
-The classification architecture shares much similarities with the VGG16 architecture. The main difference can be found in the final layers of the network. This is due to the fact that classification is used rather than direct reconstruction of the wanted color layers. This classification is subsequently used to colorize the image. \\
-\\
-\textbf{Reconstruction}
-
-For reconstruction of the image, linear up-scaling is used. The reconstruction begins after the bottleneck of the convolutional network is reached, where the resolution of the feature maps is 16x16 pixels. The up-scaled information is concatenated with the convolutional layer before the bottleneck that matches the up-scaled layer resolution. Then a convolutional layer is used for feature extraction of the concatenated layer. A batch normalization is applied and the processes is repeated until the original image resolution is retrieved. For both the VGG16 and Dahl based architecture a final output layer is used with a 2 feature map output, which match to the corresponding colour output layers.
-
-For the classification the image is reconstructed to its original resolution. However, first a convolutional layer using a 1x1 kernel is used that has the same amount of feature maps as the required number of possible color classification bins. Then, these feature maps, representing discretized colours, %jopie jou expertise.
+\subsubsection{Compact classifier}
 
 
-A detailed representation with of the various architectures is given in figure {\color{red}(XXX)}}
+\subsubsection{Compact classifier dilated}
 
-\subsection{Loss function}
+
+\subsubsection{Compact classifier dilated and concat}
+
+
+\subsubsection{VGG16 compact classifier}
+
+
+
 
 \begin{wrapfigure}{R}{0.5\textwidth}
 	\vspace{-20pt}
