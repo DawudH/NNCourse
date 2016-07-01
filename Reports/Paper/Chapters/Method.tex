@@ -105,33 +105,38 @@ To summarize, the HSV, YCbCr and CIELab color spaces all have the possibility of
 
 \subsection{Convolutional neural network properties}
 \label{sec:nnproperties}
-Convolutional neural networks contain a vast amount of properties that determine the behaviour of the network. Structure of the loss function and the model architecture being the most important properties. To compare different architectures, it is important to keep as much hyperparameters the same as possible, resulting in a fair comparison between CNNs. The choices made in the experiment setup which are affiliated with the CNN properties will be explained here.
 
-%The incoming pipeline of the CNN can be chosen to be initialed from scratch, or to be initialed with pre-trained weights. For example VGG16 \cite{Simonyan} has shown excellent results in image classification, and therefore already has a large amount of feature extraction already available.
-A few parameters are held constant over all the test cases. When using a network without pre-trained weights, the networks weights have to be initialized. This is done using a Glorot Uniform distribution \cite{Glorot} as initialization of the weights. This weight initialization method samples from a uniform distribution with its variance scaled depending on the ingoing and outgoing data. 
+\begin{wrapfigure}{R}{0.5\textwidth}
+	\vspace{-20pt}
+	\begin{center}
+		\includegraphics[width=0.49\textwidth,trim={75px 0px 75px 0px},clip]{K_nearest}
+	\end{center}
+	\caption{K nearest neighbors}
+	\label{fig:knearest}
+\end{wrapfigure}
 
-The intermediate layers of all the network consist of convolutional layers. All convolutional layers use ReLu activation functions, except for the final output layers \cite{nair2010rectified}. 
-Kernel sizes in the convolutional layers of the network are 3x3 kernels. This kernel size is based upon VGG16's \cite{Simonyan} kernel size.
-Stride in the convolutional layers is 1 by default. However, in the CNNs using dilation in the output pipeline, {\color{red} ref(XXX)} stride is used as a way to downsample the resolution of the image, comparable to the function of max pooling, but remaining more spatial properties of the input image.  Padding is required when using convolutional layers due to the fact that border information of the image is lost when convolving. This property is set to keep the output resolution the same as the input resolution. Zero padding is used when conventional convolutions operations are performed. Symmetric padding is used when dilated convolutions are used, again the amount of padding is chosen to keep the output dimensions the same.
+Convolutional neural networks contain a vast amount of properties that determine the behaviour of the network. Structure of the loss function and the model architecture being the most important properties. To compare different architectures, it is important to keep, if possible, the hyperparameters the same, resulting in a fair comparison between CNNs. The choices made in the experiment setup which are affiliated with the CNN properties will be explained here.
+
+A few parameters are held constant over all the test cases. The parts of the network (or the complete network) that are initialized without pre-trained weights are randomly initialized. This is done using a Glorot Uniform distribution \cite{Glorot}. This weight initialization method samples from a uniform distribution with its variance scaled depending on the ingoing and outgoing data. 
+
+The intermediate layers of all the network consist of convolutional layers. All convolutional layers use ReLu non-linearities \cite{nair2010rectified}, except for the final output layers, they are different per architecture. 
+Kernel sizes in the convolutional layers of the network are of size 3x3. This kernel size is based upon VGG16's \cite{Simonyan} kernel size, as is used in the other reference networks \cite{Dahl}\cite{Zhang} \cite{ioffe2015batch}.
+Stride in the convolutional layers is 1x1 by default. However, in the CNNs using dilation in the output pipeline, stride is used as a way to downsample the resolution of the image, comparable to the function of max pooling, but retaining more spatial properties of the input image \cite{yu2015multi}. Padding is required when using convolutional layers due to the fact that border information of the image is lost when convolving. This property is set to keep the output resolution the same as the input resolution. Zero valued padding is used when conventional convolutions operations are performed. Symmetric valued padding is used when dilated convolutions are used, again the amount of padding is chosen to keep the output dimensions the same.\\
 
 
 \subsubsection{Feature Extraction}
-To be able to recognize certain objects in grayscale images, object dependent features are extracted. 
-This is done in the first part of the convolutional neural network, up until the bottleneck of the network.
-To extract these features convolutional layers are used with a varying amount of feature maps. A part of this feature extraction is reducing local features to more global features, making them invariant to spatial transformations. To accomplish this, Max-pooling is widely used. Another technique available is using an appropriate amount of stride when convolving. {\color{red}reference??}.
-
-This results in feature maps in the bottleneck which are spatially invariant to the input. These feature maps identify for a large part what is in the image, but have a decreased amount of spatial information. To retrieve this spatial information, proper reconstruction of the image has to be done. This is expanded upon in section \ref{sec:reconstruction}.
+To recognize certain objects in grayscale images, object dependent features are extracted. This is done in the first part of the convolutional neural network, also known as the input pipeline. To extract features convolutional layers are used. Each convolutional layer convolves the input of the layer with a kernel to a set of feature maps. Max-pooling is often used to make feature extraction spatially invariant to input transformations \cite{Simonyan}. The kernels in the incoming pipeline of the CNN can be chosen to be initialed from scratch, or to be initialed with pre-trained weights. For example VGG16 \cite{Simonyan} has shown excellent results in image classification, and therefore already has a large amount of feature extraction available. In this paper a comparison is made between using architectures which are completely trained from scratch, and architectures which use the input pipeline of the VGG16 network to initialize the convolutional kernels.\\
 
 \subsubsection{reconstruction}
-Before the bottleneck, the image is reduced to a set of features, containing decreased amounts of spatial information. To be able to colorize the image, spatial locations of the object are required. For reconstruction, various methods are used to retrieve the original image resolution.
+In the input pipeline of the network, the image is reduced to a set of features, containing decreased amounts of spatial information. To be able to colorize the image, localization of these features is required. For reconstruction, various methods are used to retrieve the original image resolution.
 
-First of all, the feature maps can be upscaled using linear upscaling. However, to retrieve the original image not only the features but also the localisation of the features needs to be done. There are multiple ways of retrieving the spatial information of the image \cite{Charpiat} \cite{Zhang}. The methods tested in these paper consist of residual autoencoders and dilated convolutions \cite{yu2015multi}.
+First of all, the feature maps can be upscaled using linear upscaling. However, to retrieve the original image not only the features but also the localization of the features needs to be done. There are multiple ways of retrieving the spatial information of the image \cite{Charpiat} \cite{Zhang}. The methods tested in these paper consist of residual auto-encoders and dilated convolutions \cite{yu2015multi}.
 
-The use of a residual autoencoder has been demonstrated by \cite{Dahl}. After the bottleneck of the CNN each layer is upscaled and concatenated with the parralel layer in the input pipeline of the network. This way global features are merged with the localisation of those featues. This process is repeated after each upscale layer untill the output of the network is reached, as can be seen in figure \ref{fig:dahlnetwork}.
+The use of a residual auto-encoder has been demonstrated by \cite{Dahl}. After the bottleneck of the CNN each layer is upscaled and concatenated with the parallel layer in the input pipeline of the network. This way global features are merged with the localization of those features. This process is repeated after each upscale layer until the output of the network is reached, as can be seen in figure \ref{fig:dahlnetwork}.
 
 %This is done by concatenating the layers of the same resolution before the bottleneck with the upscaled features after the bottleneck. Then an convolutional layer is used to merge these features in feature maps of the upscaled resolution. This process is repeated until the original image resolution is retrieved.
 %
-Another technique used is the use of dilated convolutions \cite{yu2015multi}. Zhang et al. use strides in the incoming pipeline of the CNN, which causes less loss of spatial information. The bottleneck of the network consists of 28x28 feature maps. The output pipeline of the network is initialised by two layers of dilated convolutions, where each layer consists of 3 consecutive dilated convolutions. Using dilated convolutions has the effect that the input pipeline can compress the image to a larger size leaving more spatial information in the bottleneck of the image. The receptive field of dilate
+Another technique used is the use of dilated convolutions \cite{yu2015multi}. Zhang et al. use strides in the incoming pipeline of the CNN, which causes less loss of spatial information. The bottleneck of the network consists of 28x28 feature maps. The output pipeline of the network is initialized by two layers of dilated convolutions, where each layer consists of 3 consecutive dilated convolutions. Using dilated convolutions has the effect that the input pipeline can compress the image to a larger size leaving more spatial information in the bottleneck of the image. The receptive field of dilate
 
 
 \subsubsection{Color Generation}
@@ -180,7 +185,7 @@ V = ((1 - \lambda)\cdot H + \lambda)^{-1}
 For convolutional neural networks training, stochastic gradient decent (SGD), sometimes together with momentum, is commonly used for updating the weights and biases \cite{IizukaSIGGRAPH2016}\cite{Simonyan}. The used hyper-parameters, especially the learning rate, requires careful tuning when using SGD. Often a scheduled learning rate, that is monotonically decreasing depending on the epoch, results in the best results. Since the focus of the present research lies not on what training method parameters are required, ADADELTA was used to automatically set the learning rate for every parameter\cite{zeiler2012adadelta}. Furthermore, Nesterov momentum was applied to lower the probability of getting stuck in a local minimum\cite{sutskever2013importance}.
 
 
-\subsubsection{Model Architectures}
+\subsection{Final choice of model architectures}
 
 {\color{red} 
 
