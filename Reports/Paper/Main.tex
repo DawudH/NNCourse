@@ -18,10 +18,21 @@
 \usepackage{subcaption}
 \usepackage{wrapfig}
 \usepackage[hidelinks]{hyperref} % Clickable links in PDF.
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{titlesec}
 
 \newlength\figureheight 
-\newlength\figurewidth
+\newlength\figurewidth\scshape
 
+
+\titleformat{\section}
+{\normalfont\Large\bfseries\scshape\centering}{\thesection}{1em}{}
+\titleformat{\subsection}
+{\normalfont\normalsize\bfseries\scshape}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries\scshape}{\thesubsubsection}{1em}{}
+\titleformat{\paragraph}[runin]
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 
 % Set sizes figures (all the boxplots in 1 go!)
 \setlength\figureheight{0.3\textwidth}
