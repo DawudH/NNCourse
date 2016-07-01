@@ -185,7 +185,7 @@ $p_{i,j}$ is the predicted classification, where $i$ depicts the predicted pixel
 L_{i} = -\sum t_{i,j}\log(p_{i,j})
 \end{equation}
 
-Due to the fact that in the training set the lower a and b values are highly represented, after training a bias will result towards picking lower a and b values during colorization, thus leading to undersaturated results. 
+Due to the fact that in the training set the lower a and b values are highly represented, after training a bias will result towards picking lower a and b values during colorization, thus leading to under saturated results. 
 Class rebalancing is added to assist the network in coping with this existing skewness of the training data set. This is done by generating a histogram of the discrete colors in the dataset, using this information to balance the loss function with respect to each color. 
 This histogram is then fused with a uniform distribution to deal with the fact that some of the colors in the histogram are so underrepresented that they have too big of an influence on the color rebalancing. To keep the color rebalancing within reasonable bounds, its expected value is kept equal to one. 
 The class rebalancing factor is given by equation \ref{eq:classrebalance}. The complete loss function of the cross-entropy is given by equation \ref{eq:lossZhang}, while the mean is also taken over the batch.
