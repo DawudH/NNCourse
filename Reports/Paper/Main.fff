@@ -1,0 +1,114 @@
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.63\textwidth]{Dilations}
+\caption{Illustration of dilated convolutions. Figure c shows a receptive field of 15 after only 3 convolutions. Normal convolutions would have a receptive field of 7 after 3 convolutions \cite{yu2015multi}.}
+\label{fig:dilations}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}
+\centering
+\begin{subfigure}[b]{0.32\textwidth}
+\includegraphics[width=\textwidth,trim={125px 75px 125px 75px},clip]{RGB}
+\caption{The RGB colorspace}
+\label{fig:RGB}
+\end{subfigure}
+~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.32\textwidth}
+\includegraphics[width=\textwidth,trim={125px 75px 125px 75px},clip]{YCbCr}
+\caption{The RGB colorspace represented in the YCbCr colorspace}
+\label{fig:YCbCr}
+\end{subfigure}
+~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.32\textwidth}
+\includegraphics[width=\textwidth,trim={175px 75px 150px 75px},clip]{CIELab}
+\caption{The RGB colorspace represented in the CIELab colorspace}
+\label{fig:CIELab}
+\end{subfigure}
+\caption{The different colorspaces used in the different networks}\label{fig:animals}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.59\textwidth]{AnnealedMean.jpg}
+\centering
+\caption{Effect of applying the annealed mean operation on the  color output probabilities of the network. Lowering the T brings out more vibrant colors in the image. A higher T will results in more dull colors.}
+\label{fig:anmean}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth,trim={0cm 0.5cm 7cm 26.9cm},clip]{final_architecture.pdf}
+\caption{Legend}
+\label{fig:Legend}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,trim={0cm 17.97cm 2.5cm 6.3cm},clip]{final_architecture.pdf}
+\caption{Compact}
+\label{fig:compact}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,trim={0cm 13.5cm 0.5cm 11.4cm},clip]{final_architecture.pdf}
+\caption{Compact classifier}
+\label{fig:compact_classifier}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,trim={0cm 8.5cm 3cm 16.5cm},clip]{final_architecture.pdf}
+\caption{Compact classifier dilated}
+\label{fig:compact_classifier_dilated}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,trim={0cm 2.5cm 2.5cm 21.5cm},clip]{final_architecture.pdf}
+\caption{Compact classifier dilated + concat}
+\label{fig:compact_classifier_dilated_concat}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,trim={0cm 23.5cm 0.5cm 1.5cm},clip]{final_architecture.pdf}
+\caption{VGG16 classifier}
+\label{fig:VGG_classifier}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{blur}
+\caption{Blur}
+\label{fig:blur}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{YCbCr_vs_CIELab}
+\caption{YCbCr vs CIELab}
+\label{fig:YCbCr_vs_CIELab}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{set1}
+\caption{Results}
+\label{fig:results}
+\end{figure}
+\efloatseparator
+ 
