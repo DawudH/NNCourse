@@ -77,7 +77,7 @@ The network is trained to be able to colorize an image, but the way it outputs t
 
 \textbf{CIELab} Similarly to the YCbCr color space, the L channel specifies the luminosity, the a and b layers the color. In contrast with the YCbCr space, a given a and b value specify a color, while the luminosity only determines how light the color is. However, for a single L layer not all a and b value translate to colors that can be represented in the RGB color space (as displayed by computer monitors). The CIELab color space is visualized in figure \ref{fig:CIELab}\\
 
-To summarize, the HSV, YCbCr and CIELab color spaces all have the possibility of using one channel as input to the neural network, while requiring only two outputs of the network that instead of three with the RGB color space. Combined with the input, these two outputs allow reconstructing a color image. According to Iizuka, the CIELab color space has been found to give the most correct results for a colorization network\cite{IizukaSIGGRAPH2016}.
+To summarize, the HSV, YCbCr and CIELab color spaces all have the possibility of using one channel as input to the neural network, while requiring only two outputs of the network that instead of three with the RGB color space. Combined with the input, these two outputs allow reconstructing a color image. According to Iizuka, the CIELab color space has been found to give the most correct results for a colorization network\cite{IizukaSIGGRAPH2016}. Considering the disadvantages of the HSV color space, the YCbCr and CIELab color spaces are compared during the present research.
 
 \begin{figure}
 	\centering

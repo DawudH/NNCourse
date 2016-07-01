@@ -50,11 +50,11 @@ Although this makes quantification of the quality possible, it is labor intensiv
 
 Another way is to mathematically define a quality measure, probably involving the ground truth color image and the colorized image, putting a number to the difference between these two. 
 One of the most used error measures is the sum of the squared errors, calculating the difference in color per pixel, squaring every individual component and summing to obtain the final measure. 
-This approach is natural to start with, but leads to one of the biggest unsolved problems encountered in automatic image colorization: the sepia and saturation problem.
+This approach is natural to start with, but leads to one of the biggest unsolved problems encountered in automatic image colorization: the averaging problem.
 
-The sepia and saturation problem arises from the following: a neural network is shown numerous examples of a certain object, of which it needs to deduce color from a grayscale image of this object. 
+The averaging problem arises from the following: a neural network is shown numerous examples of a certain object, of which it needs to deduce color from a grayscale image of this object. 
 A trained neural network, in order to have the lowest possible cumulative error for all the training images, is encouraged to take some sort of mean color of all examples of the object in the training data set, which leads to the lowest mean squared error. For most objects that are linked to a certain color (such as bricks or a cloudless sky), this leads to undersaturated results, as illustrated in figure \ref{fig:colorspacesaturation}. 
-For objects that are not inherently linked to a certain color, this leads to a mean that lies somewhere in the center of the color space, which in practice often leads to a generic sepia tone.\\
+For objects that are not inherently linked to a certain color, this leads to a mean that lies somewhere in the center of the color space, which in practice often leads to a generic sepia tone\cite{Dahl}.\\
 	
 In the rest of the paper the research is detailed on the problem of automatic image colorization using neural networks, starting with a literature review containing relevant other neural networks in section \ref{sec:litreview}. Multiple ideas are derived from these previous works. In section \ref{sec:method} these ideas in combination with new insights are described, detailing the method and different architectures to try. After that the results, a discussion of the results, a conclusion and recommendations are given.
 	
