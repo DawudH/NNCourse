@@ -204,68 +204,77 @@ V = ((1 - \lambda)\cdot H + \lambda)^{-1}
 For convolutional neural networks training, stochastic gradient decent (SGD), sometimes together with momentum, is commonly used for updating the weights and biases \cite{IizukaSIGGRAPH2016}\cite{Simonyan}. The used hyper-parameters, especially the learning rate, requires careful tuning when using SGD. Often a scheduled learning rate, that is monotonically decreasing depending on the epoch, results in the best results. Since the focus of the present research lies not on what training method parameters are required, ADADELTA was used to automatically set the learning rate for every parameter\cite{zeiler2012adadelta}. Furthermore, Nesterov momentum was applied to lower the probability of getting stuck in a local minimum\cite{sutskever2013importance}.
 
 \subsection{Final choice of model architectures}
-Finally, different feature extraction, reconstruction and color generation architectures are combined in five different neural network model architectures that are tested for their performance. These five architectures are summarized in table \ref{tab:dataset}. All of the network architectures are described below by how and why they differ from the other architectures.
+In order to test the different architecture features as described above, five different neural network model architectures were designed. These architectures are implemented and tested for their performance. A summary of the architectures can be found in table \ref{tab:dataset}. All of the network architectures are described below by how and why they differ from the other architectures. There are a few interesting options for the architecture that are researched. The networks are also illustrated in different figures, for which the legend is found in figure \ref{fig:Legend}.
 
-\newpage
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.95\textwidth,trim={0cm 23.5cm 0.5cm 1.5cm},clip]{final_architecture.pdf}
-	\caption{VGG16 classifier}
-	\label{fig:VGG_classifier}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.95\textwidth,trim={0cm 17.97cm 2.5cm 6.3cm},clip]{final_architecture.pdf}
-	\caption{Compact}
-	\label{fig:compact}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.95\textwidth,trim={0cm 13.5cm 0.5cm 11.4cm},clip]{final_architecture.pdf}
-	\caption{Compact classifier}
-	\label{fig:compact_classifier}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.95\textwidth,trim={0cm 8.5cm 3cm 16.5cm},clip]{final_architecture.pdf}
-	\caption{Compact classifier dilated}
-	\label{fig:compact_classifier_dilated}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.95\textwidth,trim={0cm 2.5cm 2.5cm 21.5cm},clip]{final_architecture.pdf}
-	\caption{Compact classifier dilated + concat}
-	\label{fig:compact_classifier_dilated_concat}
-\end{figure}
-
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.95\textwidth,trim={0cm 0.5cm 7cm 26.9cm},clip]{final_architecture.pdf}
 	\caption{Legend}
 	\label{fig:Legend}
 \end{figure}
 
+The different options for the networks are all described in the rest of the method section, but a short summary is given here:
+\begin{itemize}
+	\item Feature extraction: use a non-pretrained net or a part of VGG16.
+	\item Color generation: use a two feature map output as used by Dahl \cite{Dahl} or a classification approach as done by Zhang\cite{Zhang}.
+	\item Feature extraction downscaling: Use max-pooling as used by Dahl \cite{Dahl} or a stride in the convolutional filter as used by Zhang and Iizuka\cite{Zhang}\cite{IizukaSIGGRAPH2016}.
+	\item Reconstruction of local features: use concatenation and upscaling, leading to a form of hypercolumns as explained by Dhal\cite{Dahl} or dilation as used by Zhang\cite{Zhang}.
+\end{itemize}
+
+
+
+
+
+
+
+
+
 
 \subsubsection{Compact}
-
+The compact network is the only network that does not use classification as the color generation part of the network, but rather the two feature map output. It uses concatenation as its way of retrieving the spatially local information. Furthermore it is trained with randomly initialized weights. The network architecture is illustrated in figure \ref{fig:compact}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.95\textwidth,trim={0cm 17.97cm 2.5cm 6.3cm},clip]{final_architecture.pdf}
+	\caption{Compact}
+	\label{fig:compact}
+\end{figure}
 
 \subsubsection{Compact classifier}
-
+The compact classifier is the same network as the compact network, with a classification output instead of the two feature map output. The network architecture is illustrated in figure \ref{fig:compact_classifier}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.95\textwidth,trim={0cm 13.5cm 0.5cm 11.4cm},clip]{final_architecture.pdf}
+	\caption{Compact classifier}
+	\label{fig:compact_classifier}
+\end{figure}
 
 \subsubsection{Compact classifier dilated}
-
+The compact classifier dilated removes the max-pool layers, but instead uses stride to downscale in the feature extraction layers and dilation in the reconstruction layer. The network architecture is illustrated in figure \ref{fig:compact_classifier_dilated}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.95\textwidth,trim={0cm 8.5cm 3cm 16.5cm},clip]{final_architecture.pdf}
+	\caption{Compact classifier dilated}
+	\label{fig:compact_classifier_dilated}
+\end{figure}
 
 \subsubsection{Compact classifier dilated and concat}
+This network not only uses dilated convolutions but adds concatenation of the feature extraction network with the reconstruction network to add more spatial information. The network architecture is illustrated in figure \ref{fig:compact_classifier_dilated_concat}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.95\textwidth,trim={0cm 2.5cm 2.5cm 21.5cm},clip]{final_architecture.pdf}
+	\caption{Compact classifier dilated + concat}
+	\label{fig:compact_classifier_dilated_concat}
+\end{figure}
 
 
 \subsubsection{VGG16 compact classifier}
-
-
+The VGG16 compact classifier is the same network as the compact classifier, but instead uses the weights of the VGG16 network for the feature extraction part of the network, also making these weights non-trainable. The network architecture is illustrated in figure \ref{fig:VGG_classifier}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.95\textwidth,trim={0cm 23.5cm 0.5cm 1.5cm},clip]{final_architecture.pdf}
+	\caption{VGG16 classifier}
+	\label{fig:VGG_classifier}
+\end{figure}
 
 
 
