@@ -107,15 +107,6 @@ To summarize, the HSV, YCbCr and CIELab color spaces all have the possibility of
 \label{sec:nnproperties}
 
 Convolutional neural networks contain a vast amount of properties that determine the behaviour of the network. Structure of the loss function and the model architecture being the most important properties. To compare different architectures, it is important to keep the hyperparameters the same as much as possible, resulting in a fair comparison between CNNs. The choices made in the experiment setup which are affiliated with the CNN properties will be explained here.
-\begin{wrapfigure}{R}{0.5\textwidth}
-	\vspace{-20pt}
-	\begin{center}
-		\includegraphics[width=0.49\textwidth,trim={75px 0px 75px 0px},clip]{K_nearest}
-	\end{center}
-	\caption{K nearest neighbors}
-	\label{fig:knearest}
-\end{wrapfigure}
-
 
 A few parameters are held constant over all the test cases. The parts of the network (or the complete network) that are initialized without pre-trained weights are randomly initialized. This is done using a Glorot Uniform distribution \cite{Glorot}. This weight initialization method samples from a uniform distribution with its variance scaled depending on the ingoing and outgoing data. 
 
@@ -198,6 +189,51 @@ For convolutional neural networks training, stochastic gradient decent (SGD), so
 
 \subsection{Final choice of model architectures}
 Finally, different feature extraction, reconstruction and color generation architectures are combined in five different neural network model architectures that are tested for their performance. These five architectures are summarized in table \ref{tab:dataset}. All of the network architectures are described below by how and why they differ from the other architectures.
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.95\textwidth,trim={0cm 23.5cm 0.5cm 1.5cm},clip]{final_architecture.pdf}
+	\caption{VGG16 classifier}
+	\label{fig:VGG_classifier}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.95\textwidth,trim={0cm 17.97cm 2.5cm 6.3cm},clip]{final_architecture.pdf}
+	\caption{Compact}
+	\label{fig:compact}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.95\textwidth,trim={0cm 13.5cm 0.5cm 11.4cm},clip]{final_architecture.pdf}
+	\caption{Compact classifier}
+	\label{fig:compact_classifier}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.95\textwidth,trim={0cm 8.5cm 3cm 16.5cm},clip]{final_architecture.pdf}
+	\caption{Compact classifier dilated}
+	\label{fig:compact_classifier_dilated}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.95\textwidth,trim={0cm 2.5cm 2.5cm 21.5cm},clip]{final_architecture.pdf}
+	\caption{Compact classifier dilated + concat}
+	\label{fig:compact_classifier_dilated_concat}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.95\textwidth,trim={0cm 0.5cm 7cm 26.9cm},clip]{final_architecture.pdf}
+	\caption{Legend}
+	\label{fig:Legend}
+\end{figure}
+
 
 \subsubsection{Compact}
 
