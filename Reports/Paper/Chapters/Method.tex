@@ -139,13 +139,17 @@ The use of a residual autoencoder has been demonstrated by \cite{Dahl}. After th
 Another technique used is the use of dilated convolutions \cite{yu2015multi}. Zhang et al. use strides in the incoming pipeline of the CNN, which causes less loss of spatial information. The bottleneck of the network consists of 28x28 feature maps. The output pipeline of the network is initialised by two layers of dilated convolutions, where each layer consists of 3 consecutive dilated convolutions. Using dilated convolutions has the effect that the input pipeline can compress the image to a larger size leaving more spatial information in the bottleneck of the image. The receptive field of dilate
 
 \subsection{Color Generation}
-In the final layers of the network, the original image color layers have to be reconstructed. Two different methods are used throughout the paper; Construction using two feature maps and classification.
+In the final layers of the network, the original image color layers have to be reconstructed. Two different methods are used throughout the paper: construction using two feature maps and classification.
 
 The construction using two feature maps is a direct result of retrieving the original image resolution through the reconstruction of the image. As a final layer, a convolutional layer is used that maps to two feature maps, which represent the two color layers that are finally used to create a colorized image.
 
-As an aid to the colorization process, a Gaussian Blur is used on the color layers of the original image. Colorization does not require precise pixel by pixel colorization, because colors in images mostly appear in sets of pixels. When blurring, this enables the network to more easily converge towards a solution by reducing the noise in the color of the pixel set. Note that blurring the color layers does not reduce the image fidelity. This is due to the fact that the luminosity layer contains the details and contrast of the image, which is subsequently merged with the output color layers of the network.
+As an aid to the colorization process, a Gaussian Blur is used on the color layers of the original image. Colorization does not require precise pixel by pixel colorization, because colors in images mostly appear in sets of pixels. When blurring, this enables the network to more easily converge towards a solution by reducing the noise in the color of the pixel set. Note that blurring the color layers does not reduce the image fidelity. This is due to the fact that the luminosity layer contains the details and contrast of the image, which is subsequently merged with the output color layers of the network. This makes the colorization problem into a regression problem, where a continuous function is sought which maps a grayscale input to the two values that determine color in the output.
 
-{\color{red} Classification joostjens}
+The other method used is a classification approach to colorization: for a given input image, every pixel in the output image falls within one of many predefined color classes. Every color class contains a range of similar colors, where the range is smaller with a larger number of classes. While in the target image every output pixel falls into exactly one color class (the class of the actual color), classification using a neural network gives a probability distribution over the possible color classes for every pixel. This more closely resembles the nature of the colorization problem, since not every object is linked to a single color, but rather a distribution of possible colors. The final colorized version of the image is created by processing the probability distribution per pixel. Implementing an annealed mean to pick the best color from the probability distribution allows setting the degree with which to pick either the mode or the mean of the distribution.
+
+Both the two feature maps and classification approach are tried during the present research.
+
+
 
 \subsection{Loss Function}
 The loss function depends on the network architecture. In this paper roughly two different types of networks are used;Two feature maps output and classification. 
