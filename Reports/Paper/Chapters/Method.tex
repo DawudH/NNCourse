@@ -46,10 +46,10 @@ This section covers the different methods used to get an answer to the question 
 Large training and validation datasets are required for training and validation of the CNNs.
 Some restrictions on the datasets had to be made due to limitations in computational power, resulting in a selection of images based on a certain category; fruit and landscape images.
 
-The landscape dataset is used as a low-level test case, images of landscapes offer less distinct features coupled to a mapping of the colors, e.g. most landscapes are green at the bottom and blue at the top. The high-level test case conists of the fruit dataset.
-Fruit is a category which has distinct colors corresponding to distinct features. Therefore, in order to color fruit correctly, the network has to learn to link colors to distinct features in the input, straining the networks requirements. Also many fruit classes are linked to ambiguous colors. Taking fruit as the dataset is therefore an excellent method to check wether the network is able to counter the 'averaging' problem also mentioned before.
+The landscape dataset is used as a low-level test case, images of landscapes offer less distinct features coupled to a mapping of the colors, e.g. most landscapes are green at the bottom and blue at the top. The high-level test case consists of the fruit dataset.
+Fruit is a category which has distinct colors corresponding to distinct features. Therefore, in order to color fruit correctly, the network has to learn to link colors to distinct features in the input, straining the networks requirements. Also many fruit classes are linked to ambiguous colors, i.e. green or red apple. Taking fruit as the dataset is therefore an excellent method to check whether the network is able to counter the 'averaging' problem also mentioned before.
 
-The datasets where generated using the popular image website {\color{red} Flickr (XXX)}.
+The datasets are generated using the popular image website Flickr\footnote{\url{https://www.flickr.com/}}.
 Using their freely available API a program was made that retrieved images in the required resolution and kept track of images retrieved, to avoid duplicates. The datasets retrieved had to be checked on incorrect images. To solve this problem a web application was made that enabled us to check images on defects. A detailed description can be found in {\color{red}appendix (XXX)} The checked datasets are collected in batches and stored in Numpy arrays as input for the network.
 This resulted in 2 datasets, which are summarized in table \ref{tab:dataset}.
 
@@ -70,7 +70,7 @@ reduces computation time since better use is made of the parallelization of mode
 
 The network is trained to be able to colorize an image, but the way it outputs the colorized image is dependent on the color space used during training. There are several options available:\\
 
-\textbf{RGB} This widely used color space specifies an intensity for the channels red, blue and green. The biggest drawback of using RGB is that the color is not separated from the luminosity. In this way, the network needs not only to output a hue and saturation of a color, but also the luminosity itself. This makes it a much tougher challenge to output an image that resembles a colorized version of the grayscale image. A visualisation of the RGB space is given in figure \ref{fig:RGB}
+\textbf{RGB} This widely used color space specifies an intensity for the channels red, blue and green. The biggest drawback of using RGB is that the color is not separated from the luminosity. In this way, the network needs not only to output a hue and saturation of a color, but also the luminosity itself. This makes it a much tougher challenge to output an image that resembles a colorized version of the grayscale image. A visualization of the RGB space is given in figure \ref{fig:RGB}
 
 \textbf{HSV} Specifying the hue, saturation and value, uncouples the luminosity (value) from the color (hue and saturation). Furthermore decoupling the saturation could allow specifically tackling the sepia and saturation problem as described in section \ref{sec:intro}. However, the color space is periodic in the hue axis. From the numerical perspective, this leads to an ambiguous error specification, since for one difference between target and network output color, two directions of improvement are equally valid, thus rendering gradient descent impossible.
 
