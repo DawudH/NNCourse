@@ -29,8 +29,7 @@ To asses the effect of different colorspaces, a comparison is made between CIELa
 The comparison between different Gaussian blur kernel size is seen in figure \ref{fig:blur}. The comparison was done with the compact network, trained on the landscape dataset. Note that the kernel size only comes into play during training, since the target output layer is blurred the target less noisy. For no blur, the network converged to an almost grayscale image. For $\sigma = 3$ and $\sigma = 5$ the network did learn to colorize images. With $\sigma = 5$ the images look like they have a blue overlay.
 
 \subsection{Network output}
-In this section the colorization result of the different networks are shown, by propagating an image through the trained networks. These results are shown in figure \ref{fig:results}. Note that the annealed mean temperature is set to $0.4$. The optimal setting for the temperature can vary for each network, however keeping this into account sound conclusions can still be made. The compact network output has a lower saturation compared to the other networks. {\color{red} Hier nog de andere verschillen uit leggen zonder interpretatie te geven!}
-
+In this section the colorization result of the different networks are shown, by propagating an image through the trained networks. These results are shown in figure \ref{fig:results}. Note that the annealed mean temperature is set to $0.4$. The optimal setting for the temperature can vary for each network, however keeping this into account sound conclusions can still be made. The compact network output has a lower saturation compared to the other networks. The Compact Classifier Dilated + Concat and VGG16 Classifier show lots of color artifacts. The Compact Classifier and Compact Classifier Dilated show these artifacts to a lesser extend.
 \clearpage
 \begin{figure}[h!]
 	\centering
