@@ -29,7 +29,14 @@ To asses the effect of different colorspaces, a comparison is made between CIELa
 The comparison between different Gaussian blur kernel size is seen in figure \ref{fig:blur}. The comparison was done with the compact network, trained on the landscape dataset. Note that the kernel size only comes into play during training, since the target output layer is blurred the target less noisy. For no blur, the network converged to an almost grayscale image. For $\sigma = 3$ and $\sigma = 5$ the network did learn to colorize images. With $\sigma = 5$ the images look like they have a blue overlay.
 
 \subsection{Network output}
-In this section the colorization result of the different networks are shown, by propagating an image through the trained networks. These results are shown in figure \ref{fig:results}. Note that the annealed mean temperature is set to $0.4$. The optimal setting for the temperature can vary for each network, however keeping this into account sound conclusions can still be made. The compact network output has a lower saturation compared to the other networks. The Compact Classifier Dilated + Concat and VGG16 Classifier show lots of color artifacts. The Compact Classifier and Compact Classifier Dilated show these artifacts to a lesser extend.
+In this section the colorization result of the different networks are shown, by propagating an image through the trained networks. These results are shown in figure \ref{fig:results}. Note that the annealed mean temperature is set to $0.4$. The optimal setting for the temperature can vary for each network, however keeping this into account sound conclusions can still be made. The compact network output has a lower saturation compared to the other networks. The Compact Classifier Dilated + Concat and VGG16 Classifier show lots of color artifacts. The Compact Classifier and Compact Classifier Dilated show these artifacts to a lesser extend. The images where propagated through the network with trained parameters based on the lowest validation error of all epochs. Some networks showed signs of over fitting. However, the VGG16 Classifier was the most evident, which is shown in figure \ref{fig:overfit}.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.5\textwidth]{erros_fruit_Dahl_Zhang_k10_T02_sigma5_nbins20_labda_05_gridsize10}
+	\caption{Error plot showing the training and validation error of the VGG16 Classifier network}
+	\label{fig:overfit}
+\end{figure}
+
 \clearpage
 \begin{figure}[h!]
 	\centering
