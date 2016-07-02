@@ -186,7 +186,7 @@ f_{T}(\textbf{z})=\frac{exp(\textbf{z}/T)}{\sum_q^{}exp(\textbf{z}_{q}/T)}
 	\begin{center}
 		\includegraphics[width=0.48\textwidth]{hist}
 	\end{center}
-	\caption{Histogram of the total fruit dataset. It can be seen that the colors are heavily biased towards 0 $a$ and 0 $b$ values. Also two ridges can be identified corresponding to more green and red colors. This comes from the large amounts of strawberries and leaves in the dataset.}
+	\caption{Histogram of the total fruit dataset. It can be seen that the colors are heavily biased towards positive $b$ values. Also two ridges can be identified corresponding to more green and red colors. This comes from the large amounts of strawberries and leaves in the dataset.}
 	\label{fig:histogram}
 	\vspace{20pt}
 \end{wrapfigure}
@@ -214,7 +214,7 @@ In order to test the different architecture features as described above, five di
 The different options for the networks are all described in the rest of the method section, but a short summary is given here:\\
 
 \begin{itemize}
-	\item Feature extraction: use a non-pretrained net or a part of VGG16.
+	\item Feature extraction: use a non-pretrained net or the input pipeline of VGG16.
 	\item Color generation: use a two feature map output as used by Dahl \cite{Dahl} and Iizuka et al. \cite{IizukaSIGGRAPH2016} or a classification approach as done by Zhang \cite{Zhang}.
 	\item Feature extraction downscaling: Use max-pooling as used by Dahl \cite{Dahl} or a stride in the convolutional filter as used by Zhang and Iizuka \cite{Zhang}\cite{IizukaSIGGRAPH2016}.
 	\item Reconstruction of local features: use concatenation and upscaling, leading to a form of hypercolumns as explained by Dahl \cite{Dahl} or dilation as used by Zhang \cite{Zhang}.
