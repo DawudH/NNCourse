@@ -66,9 +66,14 @@ This resulted in 2 datasets, which are summarized in table \ref{tab:dataset}.
 \end{table}
 
 \footnotetext[2]{The dataset contains  out of 7000 original images, it is doubled in size by mirroring the images around the y axis.}
-The network input are 128x128 pixel grayscale images, which are propagated through the network in batches. Using batches reduces computation time since better use is made of the parallelization of modern computer architectures. Most importantly the gradients calculated using batches are a better estimate of the gradient for the entire training set, thus leading to a more stable gradient descent \cite{ioffe2015batch}. Making the batch size too large makes the search to the global minimum less stochastic, thus making it converge to a local optimum more quickly, and in general converging less quickly. 
 
-The network is trained to be able to colorize an image, but the way it outputs the colorized image is dependent on the color space used during training. There are several options available:\\
+The images in the fruit dataset are mirrored to increase the dataset. The network input are 128x128 pixel grayscale images, which are propagated through the network in batches. Using batches reduces computation time since better use is made of the parallelization of modern computer architectures. Most importantly the gradients calculated using batches are a better estimate of the gradient for the entire training set, thus leading to a more stable gradient descent \cite{ioffe2015batch}. Making the batch size too large makes the search to the global minimum less stochastic, thus making it converge to a local optimum more quickly, and in general converging less quickly. \\
+
+\subsubsection{Colorspace}
+Different colorspaces can be used for training of the CNNs, the options available are described below.\\
+
+
+%The network is trained to be able to colorize an image, but the way it outputs the colorized image is dependent on the color space used during training. There are several options available:\\
 
 \textbf{RGB} This widely used color space specifies an intensity for the channels red, blue and green. The biggest drawback of using RGB is that the color is not separated from the luminosity. In this way, the network needs not only to output a hue and saturation of a color, but also the luminosity itself. This makes it a much tougher challenge to output an image that resembles a colorized version of the grayscale image. A visualization of the RGB space is given in figure \ref{fig:RGB}.
 
@@ -205,7 +210,7 @@ V = ((1 - \lambda)\cdot H + \lambda)^{-1}
 For convolutional neural networks training, stochastic gradient decent (SGD), sometimes together with momentum, is commonly used for updating the weights and biases \cite{IizukaSIGGRAPH2016}\cite{Simonyan}. The used hyper-parameters, especially the learning rate, requires careful tuning when using SGD. Often a scheduled learning rate, that is monotonically decreasing depending on the epoch, results in the best results. Since the focus of the present research lies not on what training method parameters are required, ADADELTA was used to automatically set the learning rate for every parameter\cite{zeiler2012adadelta}. Furthermore, Nesterov momentum was applied to lower the probability of getting stuck in a local minimum\cite{sutskever2013importance}.
 
 \subsection{Final choice of model architectures}
-In order to test the different architecture features as described above, five different neural network model architectures were designed. These architectures are implemented and tested for their performance. A summary of the architectures can be found in table \ref{tab:dataset}. All of the network architectures are described below by how and why they differ from the other architectures. There are a few interesting options for the architecture that are researched. The networks are also illustrated in different figures, for which the legend is found in figure \ref{fig:Legend}.
+In order to test the different architecture features as described above, five different neural network model architectures were designed. These architectures are implemented and tested for their performance. A summary of the architectures hyperparameters and properties used in the experiments can be found in table \ref{ap:NNset}. All of the network architectures are described below by how and why they differ from the other architectures. There are a few interesting options for the architecture that are researched. The networks are also illustrated in different figures, for which the legend is found in figure \ref{fig:Legend}.
 
 \begin{figure}[h!]
 	\centering
@@ -224,13 +229,6 @@ The different options for the networks are all described in the rest of the meth
 
 
 
-
-
-
-
-
-
-
 \subsubsection{Compact}
 The compact network is the only network that does not use classification as the color generation part of the network, but rather the two feature map output. It uses concatenation as its way of retrieving the spatially local information. Furthermore it is trained with randomly initialized weights. The network architecture is illustrated in figure \ref{fig:compact}.
 \begin{figure}[H]
@@ -241,7 +239,7 @@ The compact network is the only network that does not use classification as the 
 \end{figure}
 
 \subsubsection{Compact classifier}
-The compact classifier is the same network as the compact network, with a classification output instead of the two feature map output. The network architecture is illustrated in figure \ref{fig:compact_classifier}.
+The compact classifier is the same network as the compact network, with a classification output instead of the two feature map output. The final output therefore consists of the amount of colorbins: 247. The network architecture is illustrated in figure \ref{fig:compact_classifier}. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.95\textwidth,trim={0cm 13.5cm 0.5cm 11.4cm},clip]{final_architecture.pdf}
