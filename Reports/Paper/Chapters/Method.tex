@@ -259,17 +259,17 @@ This network not only uses dilated convolutions but adds concatenation of the fe
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.95\textwidth,trim={0cm 2.5cm 2.5cm 21.5cm},clip]{final_architecture.pdf}
-	\caption{Compact classifier dilated + concat}
+	\caption{The compact classifier dilated + concat network architecture. The definition of each different layer can be found in figure \ref{fig:Legend}.}
 	\label{fig:compact_classifier_dilated_concat}
 \end{figure}
 
 
 \subsubsection{VGG16 classifier}
-The VGG16 compact classifier is the same network as the compact classifier, but instead uses the weights of the VGG16 network for the feature extraction part of the network, also making these weights non-trainable. The network architecture is illustrated in figure \ref{fig:VGG_classifier}.
+The VGG16 compact classifier is the same network as the compact classifier, but instead uses the weights of the VGG16 network for the feature extraction part of the network, also making these weights non-trainable. VGG16 does not use batch normalization, therefore each layer that is concatenated is copied (having shared non-trainable weights) and the batch normalization is applied on the copied layer before the nonlinearity. The network architecture is illustrated in figure \ref{fig:VGG_classifier}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.95\textwidth,trim={0cm 23.5cm 0.5cm 1.5cm},clip]{final_architecture.pdf}
-	\caption{VGG16 classifier}
+	\caption{The VGG16 classifier network architecture. The definition of each different layer can be found in figure \ref{fig:Legend}.}
 	\label{fig:VGG_classifier}
 \end{figure}
 
