@@ -1,0 +1,12 @@
+Results finalizen
+discussion:
+	-comparing colorspaces
+	-blur
+	-feature localization
+	-final comparison
+Conclusion
+Recommendation
+Abstracts
+
+
+Fully check document.
