@@ -24,3 +24,9 @@ The compact network was
 
 
 
+
+
+
+
+%Gaussian blur
+%It is clear that the case with $\sigma=0$, i.e. no blur, the network was unable to find any colors. Using a blur radius of $\sigma=3$ or $\sigma=5$ leads to much better results. Between these two, the $\sigma=3$ case was chosen to be the best, since it seems more inclined to pick more saturated colors. A too high blur radius will also make the training less effective since the link between texture and color becomes weaker at the edges of objects.
