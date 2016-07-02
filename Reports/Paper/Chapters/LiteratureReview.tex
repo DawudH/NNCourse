@@ -23,7 +23,7 @@ classification \cite{Krizhevsky}. Using a CNN for image colorization is a trend 
 and Cheng et al. \cite{Cheng} has shown promising results using CNN, however they all use very different
 architectures. One of the problems in the image colorization task is the maintainability of spacial information, going back from global features to a special mapping of these features in the detailed image space. 
 
-The use of max-pooling in CNN's makes the network invariant to spatial transformations. However a lot of this information is lost when the final layer of a conventional CNN is reached, which is disadvantageous for a classification and localization task. Different techniques have been proposed to regain a local mapping of the features in the final layers of the network{\color{red} Welke dan?}. 
+The use of max-pooling in CNN's makes the network invariant to spatial transformations. However a lot of this information is lost when the final layer of a conventional CNN is reached, which is disadvantageous for a classification and localization task. Different techniques have been proposed to regain a local mapping of the features in the final layers of the network. 
 
 Another big variation lies in the loss function of the research mentioned previously. Dahl \cite{Dahl} and Zhang et al. \cite{Zhang} both use pre-trained networks for the feature mapping such as VGG16 \cite{Simonyan}, however Cheng et al. \cite{Cheng} completely trains the front-end module of the network from scratch. This offers more flexibility with network architecture, however a lot more computational power is required. 
 
