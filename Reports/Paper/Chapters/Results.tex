@@ -2,17 +2,18 @@
 %Results
 %Show effect of colorspaces, blur, annealed mean
 %Compare results of architecture (images, error plot, feature maps)
-	\begin{wrapfigure}{R}{0.5\textwidth}
-		\vspace{-15px}
-		\centering
-		\includegraphics[width=0.44\textwidth]{YCbCr_vs_CIELab}
-		\caption{Comparing colorspaces, YCbCr versus CIELab. The output of the compact network architecture trained for 25 epoch on the landscape dataset.}
-		\vspace{-40px}
-		\label{fig:YCbCr_vs_CIELab}
-	\end{wrapfigure}
+	
 In section \ref{sec:method} all the different techniques and methods used resulted in multiple experiments. This sections shows the different results of each experiment, setting the foundation for the discussion.
 
 \subsection{Colorspace}
+\begin{wrapfigure}{R}{0.5\textwidth}
+	\vspace{-25px}
+	\centering
+	\includegraphics[width=0.42\textwidth]{YCbCr_vs_CIELab}
+	\caption{Comparing colorspaces, YCbCr versus CIELab. The output of the compact network architecture trained for 25 epoch on the landscape dataset.}
+	\vspace{-37px}
+	\label{fig:YCbCr_vs_CIELab}
+\end{wrapfigure}
 To asses the effect of different colorspaces, a comparison is made between CIELab and YCbCr. The compact network architecture is trained on the landscape set for both the YCbCr and CIELab color space, for a total of 25 epochs. The result is shown in figure \ref{fig:YCbCr_vs_CIELab}. The CIELab colorspace has more saturated colors than the YCbCr output. Similar results were found by Iizuka et al. \cite{IizukaSIGGRAPH2016}.
 
 %\begin{figure}
@@ -37,7 +38,7 @@ The comparison between different Gaussian blur kernel size is seen in figure \re
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.55\textwidth]{blur}
+	\includegraphics[width=0.6\textwidth]{blur}
 	\caption{The effect of different Gaussian blur kernel sizes to the training of the landscape dataset. The results are from 25 epoch of training.}
 	\label{fig:blur}
 \end{figure}

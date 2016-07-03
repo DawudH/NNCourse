@@ -18,7 +18,7 @@
 \usepackage{subcaption}
 \usepackage{wrapfig}
 \usepackage[hidelinks]{hyperref} % Clickable links in PDF.
-\usepackage[margin=2.5cm]{geometry}
+\usepackage[margin=2.25cm]{geometry}
 \usepackage{titlesec}
 
 \newlength\figureheight 
@@ -48,9 +48,9 @@
 
 \begin{document}
 
-\title{\LARGE Comparing deep neural network architectures for automatic colorization of grayscale images.}
+\title{\LARGE Design and comparison of deep convolutional neural network architectures for automatic colorization of grayscale images.}
 
-\author{J.L. Dorscheidt (4091981), Dawud Hage (4190696), D.E. van der Hoff (4139925), Joost Meulenbeld (4103548)}% <-this % stops a space
+\author{J.L. Dorscheidt\footnote{Student number J.L. Dorscheidt: 4091981}, D.D. Hage\footnote{Student number D.D. Hage: 4190696}, D.E. van der Hoff\footnote{Student number D.E. van der Hoff: 4139925}, J.F. Meulenbeld\footnote{Student number J.F. Meulenbeld: 4103548}}% <-this % stops a space
 % make the title area
 \maketitle
 \vspace{-30px}
@@ -75,17 +75,14 @@
 \input{./Chapters/Introduction.tex}
 \input{./Chapters/LiteratureReview.tex}
 \input{./Chapters/Method.tex}
-\newpage
 \input{./Chapters/Results.tex}
 \input{./Chapters/Discussion.tex}
 \input{./Chapters/Conclusion.tex}
 \input{./Chapters/Recommendations.tex}
 
-\newpage
 \FloatBarrier
 \bibliography{./Bibliography/Bibliography}
 \bibliographystyle{ieeetr}
-\newpage
 
 \appendices
 \input{./Chapters/Appendix.tex}

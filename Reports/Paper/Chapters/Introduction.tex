@@ -35,18 +35,18 @@ As opposed to the \textit{colorize by example} method, this method cannot colori
 After the training of the machine is completed, no human is needed to colorize an image since all information needed is contained within the system. This leads to a vast decrease in time consumption during colorization. One of the biggest downsides of this method is that objects are colorized based on experience with different objects of the same class. 
 However, not all objects can be colorized purely based on their class of object, i.e. an object of class ``car" can have multiple colors, and during training multiple of these colors are shown to the machine, resulting in an ambiguous mapping between object and color. The neural network method is used in \cite{Cheng}, \cite{Ho}, \cite{Krizhevsky} and \cite{Dahl}.\\
 
-The research presented in this paper dives into how to best colorize an image using a Convolutional Neural Network (CNN). The question as to what is actually the best colorization of an image does not have one final answer. 
-One answer could be that the best colorization would be the one that most people would be unable to distinguish from the original color image. This immediately involves the opinion of a human, warranting for example the use of a version of the Turing test, where for both ground truth color image and colorized image are shown to a human. The human in turn needs to pick which it thinks is colorized and which is the original. 
-Although this makes quantification of the quality possible, it is labor intensive and a direct (mathematical) link between the way the system colorizes an image and result quality is not apparent. This makes it impossible to use for any gradient-based method of training the neural network. 
-
 \begin{wrapfigure}{R}{0.37\textwidth}
-	\vspace{-20pt}
+	\vspace{-35pt}
 	\begin{center}
 		\includegraphics[width=0.37\textwidth]{saturation.png}
 	\end{center}
 	\caption{\label{fig:colorspacesaturation} The CIE 1931 color space containing all colors detectable by a human. When training a network to colorize to certain target colors of a green/blue object (black dots in image) minimizing the sum squared error, an average color will result (white dot in image), which most of the time leads to a less saturated color, i.e. more to the center of this color space. When the original colors are even more scattered, for example cars or clothes which do not inherently have a single color, a generic sepia color usually results.}
-	\vspace{-20pt}
+	\vspace{-5pt}
 \end{wrapfigure}
+
+The research presented in this paper dives into how to best colorize an image using a Convolutional Neural Network (CNN). The question as to what is actually the best colorization of an image does not have one final answer. 
+One answer could be that the best colorization would be the one that most people would be unable to distinguish from the original color image. This immediately involves the opinion of a human, warranting for example the use of a version of the Turing test, where for both ground truth color image and colorized image are shown to a human. The human in turn needs to pick which it thinks is colorized and which is the original. 
+Although this makes quantification of the quality possible, it is labor intensive and a direct (mathematical) link between the way the system colorizes an image and result quality is not apparent. This makes it impossible to use for any gradient-based method of training the neural network. 
 
 Another way is to mathematically define a quality measure, probably involving the ground truth color image and the colorized image, putting a number to the difference between these two. 
 One of the most used error measures is the sum of the squared errors, calculating the difference in color per pixel, squaring every individual component and summing to obtain the final measure. 
@@ -57,8 +57,7 @@ A trained neural network, in order to have the lowest possible cumulative error 
 For objects that are not inherently linked to a certain color, this leads to a mean that lies somewhere in the center of the color space, which in practice often leads to a generic sepia tone\cite{Dahl}.\\
 	
 In the rest of the paper the research is detailed on the problem of automatic image colorization using neural networks, starting with a literature review containing relevant other neural networks in section \ref{sec:litreview}. Multiple ideas are derived from these previous works. In section \ref{sec:method} these ideas in combination with new insights are described, detailing the method and different architectures to try. After that the results, a discussion of the results, a conclusion and recommendations are given.
-\newpage
-	
+
 	
 
 
