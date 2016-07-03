@@ -18,7 +18,7 @@ As for colorspace selection, a comparison is made on the Compact network that sh
 %overfitting of vgg16 so dataset too small
 % using compact architectures better results
 \subsection{Comparing network complexity}
-Another aspect that can be noted is that Networks are prone to overfitting on the small dataset that is used. The fruit dataset consisted of 6000 unique images for training and 1000 images for validation, both doubled in size by mirroring them. The most complex network is the VGG16 + classification network. This architecture has 512 feature maps in the bottleneck of the network. As can be seen in \ref{fig:overfit}, the VGG16 + classification network is evidently overfitting after 10 epoch. {\color{red} hier mag wel iets meer tekst?}
+Another aspect that can be noted is that Networks are prone to overfitting on the small dataset that is used. The fruit dataset consisted of 6000 unique images for training and 1000 images for validation, both doubled in size by mirroring them. The most complex network is the VGG16 + classification network. This architecture has 512 feature maps in the bottleneck of the network. As can be seen in \ref{fig:overfit}, the VGG16 + classification network is evidently overfitting after 10 epoch. 
 
 
 %comparison between dilation, concat and dilation+concat
@@ -29,6 +29,7 @@ Interesting to notice, is the difference between the dilated and concatenated ne
 
 %final comparison between all architectures, show massive image.
 \subsection{Final comparison}
+It is very clear that different network architectures and loss functions give different results for the network. Because of this, choosing one network over the other is not a clear-cut choice. Given this fact, the choice is made that compact classifier dilated yields the best overall performance, with a good overall performance with few artifacts.
 
 %conclusion on best network
 
