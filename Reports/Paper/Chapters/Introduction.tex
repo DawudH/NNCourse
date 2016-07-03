@@ -15,7 +15,7 @@
 %What is in the rest of this paper
 
 
-\IEEEPARstart{I}{n} this paper several approaches to using a deep neural network to colorize grayscale images are compared. Specifically, given a grayscale image, the neural network can generate all the data needed to present a color version of the same image, without input of the user. 
+\IEEEPARstart{I}n this paper several approaches to using a deep neural network to colorize grayscale images are compared. Specifically, given a grayscale image, the neural network can generate all the information needed to construct a color version of that image, without input of the user. 
 
 There is a substantial amount of grayscale photographic material, from before the advent of the color camera. Color images may have a greater psychological impact on people than their grayscale counterparts.
 In addition, automation of the colorization process can be applied in real time to grayscale video. Specifically (infra-red) surveillance cameras often save video in grayscale format. With the automated colorization techniques it may be possible to generate real-time color video, such that a human may more quickly understand what is seen in a video, in addition to a decrease in file size. In order to do this, it is required that the algorithm can colorize an image without intervention of a human.\\
@@ -33,7 +33,7 @@ As opposed to the \textit{colorize by example} method, this method cannot colori
 
 \textbf{Colorize using a trained machine:} Techniques like convolutional neural networks allow training of a machine to recognize specific patterns in an image and coupling the recognized pattern to a color. This requires supplying the machine with training images of which both grayscale and color versions are available. 
 After the training of the machine is completed, no human is needed to colorize an image since all information needed is contained within the system. This leads to a vast decrease in time consumption during colorization. One of the biggest downsides of this method is that objects are colorized based on experience with different objects of the same class. 
-However, not all objects can be colorized purely based on their class of object, i.e. an object of class ``car" can have multiple colors, and during training multiple of these colors are shown to the machine, leading to an ambiguous mapping between object and color. The neural network method is used in \cite{Cheng}, \cite{Ho}, \cite{Krizhevsky} and \cite{Dahl}.\\
+However, not all objects can be colorized purely based on their class of object, i.e. an object of class ``car" can have multiple colors, and during training multiple of these colors are shown to the machine, resulting in an ambiguous mapping between object and color. The neural network method is used in \cite{Cheng}, \cite{Ho}, \cite{Krizhevsky} and \cite{Dahl}.\\
 
 The research presented in this paper dives into how to best colorize an image using a Convolutional Neural Network (CNN). The question as to what is actually the best colorization of an image does not have one final answer. 
 One answer could be that the best colorization would be the one that most people would be unable to distinguish from the original color image. This immediately involves the opinion of a human, warranting for example the use of a version of the Turing test, where for both ground truth color image and colorized image are shown to a human. The human in turn needs to pick which it thinks is colorized and which is the original. 
@@ -50,7 +50,7 @@ Although this makes quantification of the quality possible, it is labor intensiv
 
 Another way is to mathematically define a quality measure, probably involving the ground truth color image and the colorized image, putting a number to the difference between these two. 
 One of the most used error measures is the sum of the squared errors, calculating the difference in color per pixel, squaring every individual component and summing to obtain the final measure. 
-This approach is natural to start with, but leads to one of the biggest unsolved problems encountered in automatic image colorization: the averaging problem.
+This approach is natural to start with, but leads to one of the problems encountered in automatic image colorization: the averaging problem.
 
 The averaging problem arises from the following: a neural network is shown numerous examples of a certain object, of which it needs to deduce color from a grayscale image of this object. 
 A trained neural network, in order to have the lowest possible cumulative error for all the training images, is encouraged to take some sort of mean color of all examples of the object in the training data set, which leads to the lowest mean squared error. For most objects that are linked to a certain color (such as bricks or a cloudless sky), this leads to undersaturated results, as illustrated in figure \ref{fig:colorspacesaturation}. 
