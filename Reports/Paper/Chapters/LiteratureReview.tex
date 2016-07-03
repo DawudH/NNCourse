@@ -12,13 +12,13 @@
 In recent years, Convolutional neural networks (CNN) have become the standard in image
 classification \cite{Krizhevsky}. Using a CNN for image colorization is a trend that has emerged only in the past year in the machine learning community. Research from Dahl \cite{Dahl}, Zhang et al. \cite{Zhang}
 and Cheng et al. \cite{Cheng} has shown promising results using CNN, however they all use very different
-architectures. One of the problems in the image colorization task is the maintainability of spacial information, going back from global features to a special mapping of these features in the detailed image space. 
+architectures. One of the problems in the image colorization task is the maintainability of spacial information, going back from global features to a spatial mapping of these features in the detailed image space. 
 
 The use of max-pooling in CNN's makes the network invariant to spatial transformations. However a lot of this information is lost when the final layer of a conventional CNN is reached, which is disadvantageous for a classification and localization task. Different techniques have been proposed to regain a local mapping of the features in the final layers of the network. 
 
-Another big variation lies in the loss function of the research mentioned previously. Dahl \cite{Dahl} and Zhang et al. \cite{Zhang} both use pre-trained networks for the feature mapping such as VGG16 \cite{Simonyan}, however Cheng et al. \cite{Cheng} completely trains the front-end module of the network from scratch. This offers more flexibility with network architecture, however a lot more computational power is required. 
+Another big variation lies in the loss function of the research mentioned previously. Either sum-squared regression is used or classification in combination with cross-entropy. Dahl \cite{Dahl} and Zhang et al. \cite{Zhang} both use pre-trained networks for the feature mapping such as VGG16 \cite{Simonyan}, however Cheng et al. \cite{Cheng} completely trains the front-end module of the network from scratch. This offers more flexibility with network architecture, however a lot more computational power is required. 
 
-In this section a short summary of the related work on image colorization using CNN is shown. In addition the paper by \cite{Simonyan} on VGG16 is explained.
+In this section a short summary of the related work on image colorization using CNN is shown.
 
 \subsection{Dahl}
 
@@ -38,7 +38,7 @@ The pre-trained VGG16 network is used, which already has a large variety of feat
 
 Maintaining the spatial information is done with the use of partial hypercolumns, also called a residual auto-encoder \cite{hariharan2015hypercolumns}. The image is upscaled by a factor two after each convolutional layer in the output pipeline of the network. These upscaled feature maps are concatenated with the corresponding input layer's feature maps as can be seen in figure \ref{fig:dahlnetwork}. This combination of global and more local features are then convolved using 3x3 convolutional kernels, this process is repeated until all the layers in the front-end are concatenated with the more global features. 
 
-Batch Normalization was applied after each convolutional layer block towards the concatenate layers (see section \ref{sec:batch_norm}). 
+Batch Normalization is applied after each convolutional layer block towards the concatenate layers (see section \ref{sec:batch_norm}). 
 Throughout the network 3x3 convolutional kernels and rectified linear units (ReLu) \cite{nair2010rectified} as non-linearities are used. The loss function consists of calculating the sum of the squared euclidean distances between the target pixel values and the output of the network. 
 Gaussian blur is used over the target output of the image, resulting in better guidance of learning. 
 
@@ -48,7 +48,7 @@ Another method to tackle this problem are variational Auto-encoders, altering a 
 
 
 \subsection{Zhang et al.}
-Very promising results are obtained by Zang et al. \cite{Zhang}, therefore a lot of the work in this paper is based on their work.
+Very promising results are obtained by Zang et al. \cite{Zhang}, therefore a lot of the work in this paper is based on their research.
 A fully automatic approach is proposed that produces vibrant and realistic colorizations. Again VGG16 is used for feature extraction with some modifications on the input layers. The max-pooling operation is replaced by strides, resulting in less loss of spatial information. 
 
 In the output pipeline of the network, dilated convolutions \cite{yu2015multi} are applied, creating an exponential increasing depth of field with the same number of convolutions compared to conventional convolutional kernels (see figure \ref{fig:dilations}).
@@ -69,7 +69,7 @@ L(\widetilde{Z},Z)=-\frac{1}{HW}\sum_{h,w}v(Z_{h,w})\sum_q^{}{Z_{h,w,q}log({\wid
 \label{eq:lossZhang}
 \end{equation}
 
-The colorspace used is CIELab, The L (luminosity) layer is the network input. The CIELab colorspace is discretized into 313 colorbins. Target probabilities per pixel are generated by applying a Gaussian blur on the k-nearest neighbor colorbins. The output of the network consists out of the distribution of probabilities over the colorbins. In order to generate a final choice of colorbin from this output vector, an annealed mean operation is applied on the output probabilities. The temperature T in the annealed mean operation determines whether the mode or the mean of the final distribution is taken as final color. An illustration of the effect of the annealed mean temperature T can be seen in fig \ref{fig:anmean} This operation is described in more detail in section \ref{sec:method}.
+The colorspace used is CIELab, The L (luminosity) layer is the network input. The CIELab colorspace is discretized into 313 colorbins. Target probabilities per pixel are generated by applying a Gaussian blur on the k-nearest neighbor colorbins, as can be seen in figure \ref{fig:k_nearest}. The output of the network consists out of the distribution of probabilities over the colorbins. In order to generate a final choice of colorbin from this output vector, an annealed mean operation is applied on the output probabilities. The temperature T in the annealed mean operation determines whether the mode or the mean of the final distribution is taken as final color. An illustration of the effect of the annealed mean temperature T can be seen in fig \ref{fig:anmean} This operation is described in more detail in section \ref{sec:method}.
 
 Various performance measures were applied by Zhang et al, the most interesting one being a 'Turing test' where participants needed to choose between a fake colorization of the image and the true ground colors of the images. The results of Zhang et. al fooled participants in 20.4 \%\ of the cases. 
 
@@ -81,7 +81,7 @@ Recently the paper by Iizuka et al. \cite{IizukaSIGGRAPH2016} is published where
 The fused information is put through a colorization network which consist out of two upscale layers and four convolutional layers, resulting in two output feature maps containing the color channels of the image, that is combined with the input to produce the colorized image. 
 Throughout the network 3x3 convolutional kernels are used, where the convolutional layers are placed in sets of two to increase the receptive field \cite{Simonyan}. To maintain the spatial information strides are used  on selected convolutional layers, just as is done by Zhang et al. \cite{Zhang}.
 
-Their novelty is the supervised classification fused with the extracted local features. The thought behind it is that the network will use the classified information to preselect the color palette to colorize the images, i.e. the network will not use green and blue when coloring an image that is taken inside.
+Their novelty is the supervised classification fused with the extracted local features. The thought behind it is that the network will use the classified information to preselect the color palette to colorize the images. For example, the network will not use green and blue when coloring an image that is taken inside.
 Interestingly to note is that this is the only colorization network described here that does not uses a pre-trained network, but is trained from random initialized weights where batch normalization layers are used to accelerate the learning. The update method used is ADADELTA \cite{zeiler2012adadelta}, such that the learning rate is adapted automatically. 
 The network is trained in different colorspaces, namely RGB, YUV and CIEL*a*b* where they conclude that the colorspace with the most perceptually reasonable results is the globally normalized CIELab colorspace (CIEL*a*b*).
 
@@ -89,6 +89,6 @@ No solution is proposed for the averaging problem, therefore this network is sti
 
 
 \subsection{Batch normalization}\label{sec:batch_norm}
-The networks described here all use batch normalization layers, this type of layer is first described in \cite{ioffe2015batch}. During training of deep networks, the combination of weights and biases can make the nonlinearities act in the saturated regime causing problems with vanishing gradient. To overcome this, the weights need to be initialized carefully and small learning rates are used resulting in slow convergence. Normalizing the output of intermediate layers over each batch, results in lower sensitivities of the weights and biases of consecutive layers with regard to the previous layer. This results in faster training due to increased learning rates, the weights initialization can be done less carefully and the need for regularization (i.e. dropout) is reduced \cite{ioffe2015batch}. 
+The networks described here all use batch normalization layers, this type of layer is first described in \cite{ioffe2015batch}. During training of deep networks, the combination of weights and biases can make the nonlinearities act in the saturated regime causing problems with vanishing gradient, this results in slow convergence. Normalizing the output of intermediate layers over each batch, results in lower sensitivities of the weights and biases of consecutive layers with regard to the previous layer. This results in faster training due to increased learning rates, the weights initialization can be done less carefully and the need for regularization (i.e. dropout) is reduced \cite{ioffe2015batch}. 
 
 
